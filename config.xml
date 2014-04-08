@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns   = "http://www.w3.org/ns/widgets"
+        xmlns:gap   = "http://phonegap.com/ns/1.0"
+        id          = "com.frenzytechnix.momsetup"
+        versionCode = "10" 
+        version     = "1.0.0" >
+
+    <!-- versionCode is optional and Android only -->
+
+    <name>MoM Scenario Setup</name>
+
+    <description>
+        Mansions of Madness keeper helper - automated scenario setup.
+    </description>
+
+    <author href="http://technix.in.ua" email="sergei.mozhaisky@gmail.com">
+        Sergey Mozhaisky
+    </author>
+
+    <icon src="icon.png" />
+
+    <gap:platform name="android" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+</widget>
