@@ -67,7 +67,7 @@
     <tr>
         <th class="text-muted"><nbsp>Keeper cards</nbsp></th>
         <td class="lead">
-            <span ng-repeat="card in setup.keeper.cards">{{keeper_cards[card]}}{{ $last ? '' : ' &middot; ' }}</span>
+            <span ng-repeat="card in setup.keeper.cards">{{keeper_cards[card] || '###'}}{{ $last ? '' : ' &middot; ' }}</span>
         </td>
         <td></td>
     </tr>   
@@ -101,28 +101,28 @@
     <tr>
         <th class="text-muted">Exploration</th>
         <td class="lead">
-            <span ng-repeat="card in setup.cards['e']"><nobr>{{cards[card].name}}</nobr>{{ $last ? '' : ' &middot; ' }}</span>
+            <span ng-repeat="card in setup.cards['e']"><nobr>{{cards[card].name || '###'}}</nobr>{{ $last ? '' : ' &middot; ' }}</span>
         </td>
         <td><span class="label label-primary">{{setup.cards['e'].length}}</span></td>
     </tr>
     <tr>
         <th class="text-muted"><nobr><span class="label label-default">?</span> Obstacles</nobr></th>
         <td class="lead">
-            <span ng-repeat="card in setup.cards['o']"><nobr>{{cards[card].name}}</nobr>{{ $last ? '' : ' &middot; ' }}</span>
+            <span ng-repeat="card in setup.cards['o']"><nobr>{{cards[card].name || '###'}}</nobr>{{ $last ? '' : ' &middot; ' }}</span>
         </td>
         <td><span class="label label-primary">{{setup.cards['o'].length}}</span></td>
     </tr>
     <tr>
         <th class="text-muted"><nobr><span class="label label-default">[}</span> Locks</nobr></th>
         <td class="lead">
-            <span ng-repeat="card in setup.cards['l']"><nobr>{{cards[card].name}}</nobr>{{ $last ? '' : ' &middot; ' }}</span>
+            <span ng-repeat="card in setup.cards['l']"><nobr>{{cards[card].name || '###'}}</nobr>{{ $last ? '' : ' &middot; ' }}</span>
         </td>
         <td><span class="label label-primary">{{setup.cards['l'].length}}</span></td>
     </tr>
     <tr ng-class="{ hide: setup.cards['x'] == undefined }">
         <th class="text-muted">Extra cards</th>
         <td class="lead">
-            <span ng-repeat="card in setup.cards['x']">{{cards[card].name}}{{ $last ? '' : ' &middot; ' }}</span>
+            <span ng-repeat="card in setup.cards['x']">{{cards[card].name || '###'}}{{ $last ? '' : ' &middot; ' }}</span>
         </td>
         <td></td>
     </tr>
@@ -146,7 +146,7 @@
         <td class="lead">
         <ul class="list-unstyled" style="margin-bottom: 0px">
             <li ng-repeat="card in room.cards">
-                {{cards[card].name}}
+                {{cards[card].name || '###'}}
                 <span class="label label-default" ng-class="{ hide: cards[card].type != 'l' && cards[card].type != 'o'  }">{{cards[card].type == 'l' ? '[}' : cards[card].type == 'o' ? '?' : ''}}</span>
             </li>
         </ul>
@@ -156,7 +156,7 @@
     <tr>
         <td class="lead">
         <ul class="list-unstyled">
-            <li ng-repeat="card in setup.cards_rnd">{{cards[card].name}}</li>
+            <li ng-repeat="card in setup.cards_rnd">{{cards[card].name || '###'}}</li>
         </ul>
         </td>
         <td><p class="text-muted"><i>Random</i></p></td>
