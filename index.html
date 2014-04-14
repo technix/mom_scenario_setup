@@ -67,7 +67,7 @@
     <tr>
         <th class="text-muted"><nbsp>Keeper cards</nbsp></th>
         <td class="lead">
-            <span ng-repeat="card in setup.k_cards">{{keeper_cards[card]}}{{ $last ? '' : ' &middot; ' }}</span>
+            <span ng-repeat="card in setup.keeper.cards">{{keeper_cards[card]}}{{ $last ? '' : ' &middot; ' }}</span>
         </td>
         <td></td>
     </tr>   
@@ -75,6 +75,17 @@
         <th class="text-muted"><nbsp>Mythos cards</nbsp></th>
         <td class="lead">
             <span ng-repeat="card in setup.m_cards"><img ng-src="{{mythos_cards[card]}}" style="width: 40px; height: 40px">&nbsp;</span>
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <th class="text-muted">Inventory</th>
+        <td class="lead">
+            <ul class="list-unstyled">
+                <li ng-class="{ hide: setup.keeper.threat == 0 }"><span class="label label-danger">{{setup.keeper.threat}}</span> Threat</li>
+                <li ng-class="{ hide: setup.keeper.threat == 0 }"><span class="label label-info">{{setup.keeper.mythos}}</span> Mythos cards</li> 
+                <li ng-class="{ hide: setup.keeper.trauma == 0 }"><span class="label label-warning">{{setup.keeper.trauma}}</span> Trauma cards</li>
+            </ul>
         </td>
         <td></td>
     </tr>
@@ -112,6 +123,13 @@
         <th class="text-muted">Extra cards</th>
         <td class="lead">
             <span ng-repeat="card in setup.cards['x']">{{cards[card].name}}{{ $last ? '' : ' &middot; ' }}</span>
+        </td>
+        <td></td>
+    </tr>
+    <tr ng-class="{ hide: setup.note == '' }">
+        <th class="text-muted">Note</th>
+        <td>
+            {{setup.note}}
         </td>
         <td></td>
     </tr>

@@ -127,8 +127,14 @@ function map_scenario_1 (choices) {
     var items = [];
     var list;
 
-    var keeper_cards = [ 'CommandMinion', 'EvilPresence', 'ManiacAttack', 'TakeSample', 'UncontrollableUrges' ];
+    var keeper_inv = {
+        cards: [ 'CommandMinion', 'EvilPresence', 'ManiacAttack', 'TakeSample', 'UncontrollableUrges' ],
+        threat: 1,
+        mythos: 1,
+        trauma: 0
+    };
     var mythos_cards = [ 'bat', 'door', 'upstairs' ];
+    var note_txt = '';
 
     var all_cards = {
         e: [ 'Axe', 'ElderSign', 'FireExtinguisher', 'Lantern', 'MagicPhrase',
@@ -168,7 +174,7 @@ function map_scenario_1 (choices) {
     var unused_cards = get_unused_cards(all_cards['e'], items);
     unused_cards.push('N5');
 
-    return { cards: all_cards, cards_rnd: unused_cards, map: items, k_cards: keeper_cards, m_cards: mythos_cards };
+    return { cards: all_cards, cards_rnd: unused_cards, map: items, keeper: keeper_inv, m_cards: mythos_cards, note: note_txt };
 }
 
 
@@ -176,8 +182,14 @@ function map_scenario_2 (choices) {
     var items = [];
     var list;
 
-    var keeper_cards = [ 'CommandMinion', 'DarkRitual', 'SummonWorshippers', 'Summoning' ];
+    var keeper_inv = {
+        cards: [ 'CommandMinion', 'DarkRitual', 'SummonWorshippers', 'Summoning' ],
+        threat: 1,
+        mythos: 2,
+        trauma: 0
+    };
     var mythos_cards = [ 'bat', 'gun', 'downstairs' ];
+    var note_txt = '';
 
     var all_cards = {
         e: [ 'Axe', 'BrassKey', 'Crucifix', 'DeVermisMysteriis', 'DholChants',
@@ -215,7 +227,7 @@ function map_scenario_2 (choices) {
     var unused_cards = get_unused_cards(all_cards['e'], items);
     unused_cards.push('N4');
 
-    return { cards: all_cards, cards_rnd: unused_cards, map: items, k_cards: keeper_cards, m_cards: mythos_cards };
+    return { cards: all_cards, cards_rnd: unused_cards, map: items, keeper: keeper_inv, m_cards: mythos_cards, note: note_txt };
 }
 
 
@@ -223,8 +235,14 @@ function map_scenario_3 (choices) {
     var items = [];
     var list;
 
-    var keeper_cards = [ 'CreatureOfNight', 'EvilPresence', 'Pyromaniac', 'RaiseDead', 'TakeSample' ];
+    var keeper_inv = {
+        cards: [ 'CreatureOfNight', 'EvilPresence', 'Pyromaniac', 'RaiseDead', 'TakeSample' ],
+        threat: 2,
+        mythos: 2,
+        trauma: 1
+    };
     var mythos_cards = [ 'fire', 'gun', 'downstairs' ];
+    var note_txt = '';
 
     var all_cards = {
         e: [ 'BrassKey', 'CeremonialSkull', 'Colt38', 'Crowbar', 'Crucifix',
@@ -274,7 +292,7 @@ function map_scenario_3 (choices) {
     var unused_cards = get_unused_cards(all_cards['e'], items);
     unused_cards.push('N5');
 
-    return { cards: all_cards, cards_rnd: unused_cards, map: items, k_cards: keeper_cards, m_cards: mythos_cards };
+    return { cards: all_cards, cards_rnd: unused_cards, map: items, keeper: keeper_inv, m_cards: mythos_cards, note: note_txt };
 }
 
 
@@ -282,8 +300,14 @@ function map_scenario_4 (choices) {
     var items = [];
     var list;
 
-    var keeper_cards = [ 'CreatureOfNight', 'Darkness', 'EvilPresence', 'TakeSample', 'UncontrollableUrges' ];
+    var keeper_inv = {
+        cards: [ 'CreatureOfNight', 'Darkness', 'EvilPresence', 'TakeSample', 'UncontrollableUrges' ],
+        threat: 1,
+        mythos: 1,
+        trauma: 0
+    };
     var mythos_cards = [ 'upstairs', 'door', 'bat' ];
+    var note_txt = '';
 
     var all_cards = {
         e: [ 'Axe', 'BrassKey', 'CeremonialSkull', 'Crowbar', 'DeVermisMysteriis',
@@ -336,7 +360,7 @@ function map_scenario_4 (choices) {
     var unused_cards = get_unused_cards(all_cards['e'], items);
     unused_cards.push('N5');
 
-    return { cards: all_cards, cards_rnd: unused_cards, map: items, k_cards: keeper_cards, m_cards: mythos_cards };
+    return { cards: all_cards, cards_rnd: unused_cards, map: items, keeper: keeper_inv, m_cards: mythos_cards, note: note_txt };
 }
 
 
@@ -344,8 +368,14 @@ function map_scenario_5 (choices) {
     var items = [];
     var list;
 
-    var keeper_cards = [ 'CommandMinion', 'EvilPresence', 'UncontrollableUrges', 'Witchcraft' ];
+    var keeper_inv = {
+        cards: [ 'CommandMinion', 'EvilPresence', 'UncontrollableUrges', 'Witchcraft' ],
+        threat: 1,
+        mythos: 1,
+        trauma: 0
+    };
     var mythos_cards = [ 'upstairs', 'bat', 'door', 'question' ];
+    var note_txt = 'Do not place exploration card in Foyer.';
 
     var all_cards = {
         e: [ 'BrassKey', 'CeremonialSkull', 'Colt38', 'DeVermisMysteriis', 'Crowbar',
@@ -408,7 +438,7 @@ function map_scenario_5 (choices) {
     var unused_cards = get_unused_cards(all_cards['e'], items);
     unused_cards.push('N5');
 
-    return { cards: all_cards, cards_rnd: unused_cards, map: items, k_cards: keeper_cards, m_cards: mythos_cards };
+    return { cards: all_cards, cards_rnd: unused_cards, map: items, keeper: keeper_inv, m_cards: mythos_cards, note: note_txt };
 }
 
 /*
