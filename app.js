@@ -20,15 +20,11 @@ function ChoiceCtrl($scope) {
     };
 
     $scope.$watchCollection('story.scenario', function() {
+        var clues = $scope.scenarios[$scope.story.scenario - 1].clues;
         for (var i = 0; i < $scope.story.choices.length; i++) {
             $scope.story.choices[i].selected = '';
             $scope.story.choices[i].visible = true;
-            if (
-                ($scope.story.scenario == 1 && i > 2) ||
-                ($scope.story.scenario == 2 && i > 3) ||
-                ($scope.story.scenario == 3 && i > 4) ||
-                ($scope.story.scenario == 4 && i > 3)
-            ) {
+            if (i >= clues) {
                 $scope.story.choices[i].visible = 'hide';
             }
         }

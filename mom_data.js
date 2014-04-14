@@ -93,11 +93,11 @@ var mythos_cards_list = {
 
 
 var scenarios_list = [
-    { id: 1, name: 'The Fall of House Lynch' },
-    { id: 2, name: 'The Inner Sanctum' },
-    { id: 3, name: 'Blood Ties' },
-    { id: 4, name: 'Classroom Curses' },
-    { id: 5, name: 'Green-Eyed Boy' }
+    { id: 1, name: 'The Fall of House Lynch', clues: 3 },
+    { id: 2, name: 'The Inner Sanctum', clues: 4 },
+    { id: 3, name: 'Blood Ties', clues: 5 },
+    { id: 4, name: 'Classroom Curses', clues: 4 },
+    { id: 5, name: 'Green-Eyed Boy', clues: 6 }
 ];
 
 
