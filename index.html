@@ -93,12 +93,19 @@
         <td></td>
     </tr>
     <tr>
-        <th class="text-muted">Keeper cards</th>
+        <th class="text-muted"><nbsp>Keeper cards</nbsp></th>
         <td class="lead">
             <span ng-repeat="card in setup.k_cards">{{keeper_cards[card]}}{{ $last ? '' : ' &middot; ' }}</span>
         </td>
         <td></td>
-    </tr>    
+    </tr>   
+    <tr>
+        <th class="text-muted"><nbsp>Mythos cards</nbsp></th>
+        <td class="lead">
+            <span ng-repeat="card in setup.m_cards"><img ng-src="{{mythos_cards[card]}}" style="width: 25px; height: 25px">&nbsp;</span>
+        </td>
+        <td></td>
+    </tr>
     </tbody>
     </table>
     </div>

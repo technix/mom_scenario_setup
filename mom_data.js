@@ -81,6 +81,17 @@ var keeper_cards_list = {
     Witchcraft: 'Witchcraft'
 };
 
+var mythos_cards_list = {
+    bat: 'img/mythos_bat.png',
+    door: 'img/mythos_door.png',
+    downstairs: 'img/mythos_downstairs.png',
+    fire: 'img/mythos_fire.png',
+    gun: 'img/mythos_gun.png',
+    question: 'img/mythos_question.png',
+    upstairs: 'img/mythos_upstairs.png'
+};
+
+
 var scenarios_list = [
     { id: 1, name: 'The Fall of House Lynch' },
     { id: 2, name: 'The Inner Sanctum' },
@@ -117,6 +128,7 @@ function map_scenario_1 (choices) {
     var list;
 
     var keeper_cards = [ 'CommandMinion', 'EvilPresence', 'ManiacAttack', 'TakeSample', 'UncontrollableUrges' ];
+    var mythos_cards = [ 'bat', 'door', 'upstairs' ];
 
     var all_cards = {
         e: [ 'Axe', 'ElderSign', 'FireExtinguisher', 'Lantern', 'MagicPhrase',
@@ -156,7 +168,7 @@ function map_scenario_1 (choices) {
     var unused_cards = get_unused_cards(all_cards['e'], items);
     unused_cards.push('N5');
 
-    return { cards: all_cards, cards_rnd: unused_cards, map: items, k_cards: keeper_cards };
+    return { cards: all_cards, cards_rnd: unused_cards, map: items, k_cards: keeper_cards, m_cards: mythos_cards };
 }
 
 
@@ -165,6 +177,7 @@ function map_scenario_2 (choices) {
     var list;
 
     var keeper_cards = [ 'CommandMinion', 'DarkRitual', 'SummonWorshippers', 'Summoning' ];
+    var mythos_cards = [ 'bat', 'gun', 'downstairs' ];
 
     var all_cards = {
         e: [ 'Axe', 'BrassKey', 'Crucifix', 'DeVermisMysteriis', 'DholChants',
@@ -202,7 +215,7 @@ function map_scenario_2 (choices) {
     var unused_cards = get_unused_cards(all_cards['e'], items);
     unused_cards.push('N4');
 
-    return { cards: all_cards, cards_rnd: unused_cards, map: items, k_cards: keeper_cards };
+    return { cards: all_cards, cards_rnd: unused_cards, map: items, k_cards: keeper_cards, m_cards: mythos_cards };
 }
 
 
@@ -211,6 +224,7 @@ function map_scenario_3 (choices) {
     var list;
 
     var keeper_cards = [ 'CreatureOfNight', 'EvilPresence', 'Pyromaniac', 'RaiseDead', 'TakeSample' ];
+    var mythos_cards = [ 'fire', 'gun', 'downstairs' ];
 
     var all_cards = {
         e: [ 'BrassKey', 'CeremonialSkull', 'Colt38', 'Crowbar', 'Crucifix',
@@ -260,7 +274,7 @@ function map_scenario_3 (choices) {
     var unused_cards = get_unused_cards(all_cards['e'], items);
     unused_cards.push('N5');
 
-    return { cards: all_cards, cards_rnd: unused_cards, map: items, k_cards: keeper_cards };
+    return { cards: all_cards, cards_rnd: unused_cards, map: items, k_cards: keeper_cards, m_cards: mythos_cards };
 }
 
 
@@ -269,6 +283,7 @@ function map_scenario_4 (choices) {
     var list;
 
     var keeper_cards = [ 'CreatureOfNight', 'Darkness', 'EvilPresence', 'TakeSample', 'UncontrollableUrges' ];
+    var mythos_cards = [ 'upstairs', 'door', 'bat' ];
 
     var all_cards = {
         e: [ 'Axe', 'BrassKey', 'CeremonialSkull', 'Crowbar', 'DeVermisMysteriis',
@@ -321,7 +336,7 @@ function map_scenario_4 (choices) {
     var unused_cards = get_unused_cards(all_cards['e'], items);
     unused_cards.push('N5');
 
-    return { cards: all_cards, cards_rnd: unused_cards, map: items, k_cards: keeper_cards };
+    return { cards: all_cards, cards_rnd: unused_cards, map: items, k_cards: keeper_cards, m_cards: mythos_cards };
 }
 
 
@@ -330,6 +345,7 @@ function map_scenario_5 (choices) {
     var list;
 
     var keeper_cards = [ 'CommandMinion', 'EvilPresence', 'UncontrollableUrges', 'Witchcraft' ];
+    var mythos_cards = [ 'upstairs', 'bat', 'door', 'question' ];
 
     var all_cards = {
         e: [ 'BrassKey', 'CeremonialSkull', 'Colt38', 'DeVermisMysteriis', 'Crowbar',
@@ -392,7 +408,7 @@ function map_scenario_5 (choices) {
     var unused_cards = get_unused_cards(all_cards['e'], items);
     unused_cards.push('N5');
 
-    return { cards: all_cards, cards_rnd: unused_cards, map: items, k_cards: keeper_cards };
+    return { cards: all_cards, cards_rnd: unused_cards, map: items, k_cards: keeper_cards, m_cards: mythos_cards };
 }
 
 /*

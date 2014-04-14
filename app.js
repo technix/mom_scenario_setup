@@ -5,6 +5,7 @@ function ChoiceCtrl($scope) {
     $scope.scenarios = scenarios_list;
     $scope.cards = cards_list;
     $scope.keeper_cards = keeper_cards_list;
+    $scope.mythos_cards = mythos_cards_list;
 
     $scope.story = {
         scenario: 1,
