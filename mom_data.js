@@ -25,6 +25,19 @@ var cards_list = {
     Torch:              { type: 'e', name: 'Torch' },
     WhateleyDiary:      { type: 'e', name: 'Whateley\'s Diary' },
     Whiskey:            { type: 'e', name: 'Whiskey' },
+    
+    // TDDUP
+    BradysHand:         { type: 'e', name: 'Brady\'s Hand' },
+    BradysHead:         { type: 'e', name: 'Brady\'s Head' },
+    Carbine:            { type: 'e', name: 'Carbine' },
+    TheCure:            { type: 'e', name: 'The Cure' },
+    SheetMusic:         { type: 'e', name: 'Sheet Music' },
+    SmithWesson:        { type: 'e', name: 'Smith & Wesson' },
+    BrassKnuckles:      { type: 'e', name: 'Brass Knuckles' },
+    Machete:            { type: 'e', name: 'Machete' },
+    NathanStone:        { type: 'e', name: 'Nathan Stone' },
+    Pickaxe:            { type: 'e', name: 'Pickaxe' },
+    TchoTchoTalisman:   { type: 'e', name: 'Tcho-Tcho Talisman' },
 
     N:                  { type: 'e', name: 'Nothing of interest' },
     N2:                 { type: 'e', name: 'Nothing of interest x2' },
@@ -48,6 +61,10 @@ var cards_list = {
     PadlockedDoor:     { type: 'l', name: 'Padlocked Door' },
     RunelockedDoor:    { type: 'l', name: 'Runelocked Door' },
     SealedDoor:        { type: 'l', name: 'Sealed Door' },
+    HiddenEntrance:    { type: 'l', name: 'Hidden Entrance' }, //TDDUP
+    FleshDoor:         { type: 'l', name: 'Flesh Door' }, //TDDUP
+    ChimeLock:         { type: 'l', name: 'Chime Lock' }, //TDDUP
+
 
     Lockbox:           { type: 'o', name: 'Lockbox' },
     LockedCabinet:     { type: 'o', name: 'Locked Cabinet' },
@@ -56,6 +73,7 @@ var cards_list = {
     Puzzlebox:         { type: 'o', name: 'Puzzlebox' },
     ShortCirquit:      { type: 'o', name: 'Short Circuit' },
     Suitcase:          { type: 'o', name: 'Suitcase' },
+    ImpassableDebris:  { type: 'o', name: 'Impassable Debris' }, //TDDUP
 
     Clue1: { type: 'c', name: 'Clue 1' },
     Clue2: { type: 'c', name: 'Clue 2' },
@@ -78,7 +96,11 @@ var keeper_cards_list = {
     Summoning: 'Summoning',
     SummonWorshippers: 'Summon Worshippers',
     UncontrollableUrges: 'Uncontrollable Urges',
-    Witchcraft: 'Witchcraft'
+    Witchcraft: 'Witchcraft',
+
+    // Till Death Do Us Part
+    Absorb: 'Absorb',
+    CrawlingChaos: 'Crawling Chaos'
 };
 
 var mythos_cards_list = {
@@ -97,7 +119,8 @@ var scenarios_list = [
     { id: 2, name: 'The Inner Sanctum', clues: 4 },
     { id: 3, name: 'Blood Ties', clues: 5 },
     { id: 4, name: 'Classroom Curses', clues: 4 },
-    { id: 5, name: 'Green-Eyed Boy', clues: 6 }
+    { id: 5, name: 'Green-Eyed Boy', clues: 6 },
+    { id: 6, name: '[POD] Till Death Do Us Part', clues: 5 }
 ];
 
 
@@ -440,6 +463,67 @@ function map_scenario_5 (choices) {
 
     return { cards: all_cards, cards_rnd: unused_cards, map: items, keeper: keeper_inv, m_cards: mythos_cards, note: note_txt };
 }
+
+function map_scenario_6 (choices) {
+    var items = [];
+    var list;
+
+    var keeper_inv = {
+        cards: [ 'Absorb', 'CrawlingChaos', 'CommandMinion', 'EvilPresence', 'RaiseDead', 'Witchcraft' ],
+        threat: 2,
+        mythos: 2,
+        trauma: 2
+    };
+    var mythos_cards = [ 'bat', 'fire', 'gun' ];
+    var note_txt = 'Place 1 random card in each empty room on the Lower Floor and leave the rest unseed.';
+
+    var all_cards = {
+        e: [ 'BradysHand', 'TheCure', 'TchoTchoTalisman', 'BradysHead',
+             'SheetMusic', 'Carbine', 'Pickaxe', 'NathanStone',
+             'BrassKnuckles', 'Machete', 'SmithWesson',
+             'DholChants', 'ElderSign', 'NamelessCults', 'RubyOfRlyeh', 'Lantern',
+             'WhateleyDiary', 'Whiskey' ],
+        o: [ 'ShortCirquit', 'ImpassableDebris' ],
+        l: [ 'ChimeLock', 'ElectricLock', 'FleshDoor', 'HiddenEntrance', 'PadlockedDoor', 'RunelockedDoor' ],
+        x: [ 'JammedDoor' ]
+    };
+
+    list = (choices[4].selected == '5A') ? [ 'N', 'Lantern' ] : [ 'NathanStone', 'Clue5' ];
+    room_add( items, list, 'Graveyard' );
+
+    list = (choices[3].selected == '4A') ? [ 'N', 'DholChants', 'PadlockedDoor' ] : [ 'SheetMusic', 'Clue3', 'FleshDoor' ];
+    room_add( items, list, 'Furnace Room' );
+
+    list = (choices[4].selected == '5A') ? [ 'NathanStone', 'Clue5' ] : [ 'N', 'Lantern' ];
+    room_add( items, list, 'Chapel' );
+
+    list = (choices[3].selected == '4A') ? [ 'SheetMusic', 'Clue3', 'FleshDoor' ] : [ 'N', 'NamelessCults', 'PadlockedDoor' ];
+    room_add( items, list, 'Secret Passage' );
+
+    list = (choices[4].selected == '5A') ? [ 'N', 'BrassKnuckles', 'ElectricLock' ] : [ 'Machete', 'Clue4', 'HiddenEntrance' ];
+    room_add( items, list, 'Cave 1' );
+
+    list = (choices[2].selected == '3A') ? [ 'BradysHand', 'Clue2', 'ChimeLock' ] : [ 'N', 'ElderSign', 'RunelockedDoor' ];
+    room_add( items, list, 'Freezer' );
+
+    list = (choices[1].selected == '2A') ? [ 'N', 'SmithWesson', 'ShortCirquit' ] : [ 'TheCure', 'Clue1', 'ImpassableDebris' ];
+    room_add( items, list, 'Hallway 1' );
+
+    list = (choices[1].selected == '2A') ? [ 'TheCure', 'Clue1', 'ImpassableDebris' ] : [ 'N', 'TchoTchoTalisman', 'ShortCirquit' ];
+    room_add( items, list, 'Library' );
+
+    list = (choices[2].selected == '3A') ? [ 'N', 'ElderSign', 'RunelockedDoor' ] : [ 'BradysHand', 'Clue2', 'ChimeLock' ];
+    room_add( items, list, 'Coat Room' );
+
+    list = (choices[4].selected == '5A') ? [ 'Machete', 'Clue4', 'HiddenEntrance' ] : [ 'N', 'BrassKnuckles', 'ElectricLock' ];
+    room_add( items, list, 'Basement Landing' );
+
+    var unused_cards = get_unused_cards(all_cards['e'], items);
+    unused_cards.push('N6');
+
+    return { cards: all_cards, cards_rnd: unused_cards, map: items, keeper: keeper_inv, m_cards: mythos_cards, note: note_txt };
+}
+
 
 /*
     list = (choices[].selected == '') ? [  ] : [  ];
