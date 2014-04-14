@@ -65,6 +65,22 @@ var cards_list = {
     Clue6: { type: 'c', name: 'Clue 6' }
 };
 
+var keeper_cards_list = {
+    CommandMinion: 'Command Minion',
+    CreatureOfNight: 'Creature of Night',
+    Darkness: 'Darkness',
+    DarkRitual: 'Dark Ritual',
+    EvilPresence: 'Evil Presence',
+    ManiacAttack: 'Maniac Attack',
+    Pyromaniac: 'Pyromaniac',
+    RaiseDead: 'Raise Dead',
+    TakeSample: 'Take Sample',
+    Summoning: 'Summoning',
+    SummonWorshippers: 'Summon Worshippers',
+    UncontrollableUrges: 'Uncontrollable Urges',
+    Witchcraft: 'Witchcraft'
+};
+
 var scenarios_list = [
     { id: 1, name: 'The Fall of House Lynch' },
     { id: 2, name: 'The Inner Sanctum' },
@@ -99,6 +115,8 @@ function room_add(items, list, room_name) {
 function map_scenario_1 (choices) {
     var items = [];
     var list;
+
+    var keeper_cards = [ 'CommandMinion', 'EvilPresence', 'ManiacAttack', 'TakeSample', 'UncontrollableUrges' ];
 
     var all_cards = {
         e: [ 'Axe', 'ElderSign', 'FireExtinguisher', 'Lantern', 'MagicPhrase',
@@ -138,13 +156,15 @@ function map_scenario_1 (choices) {
     var unused_cards = get_unused_cards(all_cards['e'], items);
     unused_cards.push('N5');
 
-    return { cards: all_cards, cards_rnd: unused_cards, map: items };
+    return { cards: all_cards, cards_rnd: unused_cards, map: items, k_cards: keeper_cards };
 }
 
 
 function map_scenario_2 (choices) {
     var items = [];
     var list;
+
+    var keeper_cards = [ 'CommandMinion', 'DarkRitual', 'SummonWorshippers', 'Summoning' ];
 
     var all_cards = {
         e: [ 'Axe', 'BrassKey', 'Crucifix', 'DeVermisMysteriis', 'DholChants',
@@ -182,13 +202,15 @@ function map_scenario_2 (choices) {
     var unused_cards = get_unused_cards(all_cards['e'], items);
     unused_cards.push('N4');
 
-    return { cards: all_cards, cards_rnd: unused_cards, map: items };
+    return { cards: all_cards, cards_rnd: unused_cards, map: items, k_cards: keeper_cards };
 }
 
 
 function map_scenario_3 (choices) {
     var items = [];
     var list;
+
+    var keeper_cards = [ 'CreatureOfNight', 'EvilPresence', 'Pyromaniac', 'RaiseDead', 'TakeSample' ];
 
     var all_cards = {
         e: [ 'BrassKey', 'CeremonialSkull', 'Colt38', 'Crowbar', 'Crucifix',
@@ -238,13 +260,15 @@ function map_scenario_3 (choices) {
     var unused_cards = get_unused_cards(all_cards['e'], items);
     unused_cards.push('N5');
 
-    return { cards: all_cards, cards_rnd: unused_cards, map: items };
+    return { cards: all_cards, cards_rnd: unused_cards, map: items, k_cards: keeper_cards };
 }
 
 
 function map_scenario_4 (choices) {
     var items = [];
     var list;
+
+    var keeper_cards = [ 'CreatureOfNight', 'Darkness', 'EvilPresence', 'TakeSample', 'UncontrollableUrges' ];
 
     var all_cards = {
         e: [ 'Axe', 'BrassKey', 'CeremonialSkull', 'Crowbar', 'DeVermisMysteriis',
@@ -297,13 +321,15 @@ function map_scenario_4 (choices) {
     var unused_cards = get_unused_cards(all_cards['e'], items);
     unused_cards.push('N5');
 
-    return { cards: all_cards, cards_rnd: unused_cards, map: items };
+    return { cards: all_cards, cards_rnd: unused_cards, map: items, k_cards: keeper_cards };
 }
 
 
 function map_scenario_5 (choices) {
     var items = [];
     var list;
+
+    var keeper_cards = [ 'CommandMinion', 'EvilPresence', 'UncontrollableUrges', 'Witchcraft' ];
 
     var all_cards = {
         e: [ 'BrassKey', 'CeremonialSkull', 'Colt38', 'DeVermisMysteriis', 'Crowbar',
@@ -366,7 +392,7 @@ function map_scenario_5 (choices) {
     var unused_cards = get_unused_cards(all_cards['e'], items);
     unused_cards.push('N5');
 
-    return { cards: all_cards, cards_rnd: unused_cards, map: items };
+    return { cards: all_cards, cards_rnd: unused_cards, map: items, k_cards: keeper_cards };
 }
 
 /*

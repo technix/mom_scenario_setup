@@ -16,6 +16,7 @@
     function ChoiceCtrl($scope) {
         $scope.scenarios = scenarios_list;
         $scope.cards = cards_list;
+        $scope.keeper_cards = keeper_cards_list;
 
         $scope.story = {
             scenario: 1,
@@ -146,6 +147,13 @@
         </td>
         <td></td>
     </tr>
+    <tr>
+        <th class="text-muted">Keeper cards</th>
+        <td class="lead">
+            <span ng-repeat="card in setup.k_cards">{{keeper_cards[card]}}{{ $last ? '' : ' &middot; ' }}</span>
+        </td>
+        <td></td>
+    </tr>    
     </tbody>
     </table>
     </div>
