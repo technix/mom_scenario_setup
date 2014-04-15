@@ -39,6 +39,20 @@ var cards_list = {
     Pickaxe:            { type: 'e', name: 'Pickaxe' },
     TchoTchoTalisman:   { type: 'e', name: 'Tcho-Tcho Talisman' },
 
+    // HOF
+    CapsulesOfTranquility:   { type: 'e', name: 'Capsules of Tranquility' },
+    CrescentBlade:      { type: 'e', name: 'Crescent Blade' },
+    Marionettes:        { type: 'e', name: 'Marionettes' },
+    SatchelOfTheVoid:   { type: 'e', name: 'Satchel of the Void' },
+    SymbolOfTheElderLight: { type: 'e', name: 'Symbol of the Elder Light' },
+    TheLostReel:        { type: 'e', name: 'The Lost Reel' },
+    UnreflectingMirror: { type: 'e', name: 'Unreflecting Mirror' },
+    VaultKey:           { type: 'e', name: 'Vault Key' },
+    DaphneCuthbert:     { type: 'e', name: '(Daphne Cuthbert)' },
+    NataliePrescott:    { type: 'e', name: '(Natalie Prescott)' },
+    RoryMichaels:       { type: 'e', name: '(Rory Michaels)' },
+    VivianDavis:        { type: 'e', name: '(Vivian Davis)' },
+
     N:                  { type: 'e', name: 'Nothing of interest' },
     N2:                 { type: 'e', name: 'Nothing of interest x2' },
     N3:                 { type: 'e', name: 'Nothing of interest x3' },
@@ -64,6 +78,8 @@ var cards_list = {
     HiddenEntrance:    { type: 'l', name: 'Hidden Entrance' }, //TDDUP
     FleshDoor:         { type: 'l', name: 'Flesh Door' }, //TDDUP
     ChimeLock:         { type: 'l', name: 'Chime Lock' }, //TDDUP
+    ArchiveVault:      { type: 'l', name: 'Archive Vault' }, //HOF
+    MarionsStage:      { type: 'l', name: 'Marion\'s Stage' }, //HOF
 
 
     Lockbox:           { type: 'o', name: 'Lockbox' },
@@ -74,6 +90,9 @@ var cards_list = {
     ShortCirquit:      { type: 'o', name: 'Short Circuit' },
     Suitcase:          { type: 'o', name: 'Suitcase' },
     ImpassableDebris:  { type: 'o', name: 'Impassable Debris' }, //TDDUP
+    FaultyProjector:   { type: 'o', name: 'Faulty Projector' }, //HOF
+    MissingReel:       { type: 'o', name: 'Missing Reel' }, //HOF
+    SuitOfArmor:       { type: 'o', name: 'Suit of Armor' }, //HOF
 
     Clue1: { type: 'c', name: 'Clue 1' },
     Clue2: { type: 'c', name: 'Clue 2' },
@@ -100,7 +119,11 @@ var keeper_cards_list = {
 
     // Till Death Do Us Part
     Absorb: 'Absorb',
-    CrawlingChaos: 'Crawling Chaos'
+    CrawlingChaos: 'Crawling Chaos',
+
+    // House of Fears
+    BreakingCharacter: 'Breaking Character',
+    TheFourthWall: 'The Fourth Wall'
 };
 
 var mythos_cards_list = {
@@ -120,7 +143,8 @@ var scenarios_list = [
     { id: 3, name: 'Blood Ties', clues: 5 },
     { id: 4, name: 'Classroom Curses', clues: 4 },
     { id: 5, name: 'Green-Eyed Boy', clues: 6 },
-    { id: 6, name: '[POD] Till Death Do Us Part', clues: 5 }
+    { id: 6, name: '[POD] Till Death Do Us Part', clues: 5 },
+    { id: 7, name: '[POD] House of Fears', clues: 5 }
 ];
 
 
@@ -530,6 +554,73 @@ function map_scenario_6 (choices) {
 }
 
 
+function map_scenario_7 (choices) {
+    var items = [];
+    var list;
+
+    var keeper_inv = {
+        cards: [ 'BreakingCharacter', 'CommandMinion', 'TheFourthWall', 'EvilPresence', 'Darkness' ],
+        threat: 2,
+        mythos: 2,
+        trauma: 2
+    };
+    var mythos_cards = [ 'bat', 'door', 'upstairs' ];
+    var note_txt = 'Place each remaining exploration card in empty room on your choice.';
+
+    var all_cards = {
+        e: [ 'BrassKnuckles', 'CapsulesOfTranquility', 'CrescentBlade', 'CultRobes', 'DeVermisMysteriis',
+             'Marionettes', 'SatchelOfTheVoid', 'SilverKey', 'SmithWesson', 'SymbolOfTheElderLight',
+             'TchoTchoTalisman', 'TheLostReel', 'UnreflectingMirror', 'VaultKey', 'Whiskey',
+             'DaphneCuthbert', 'NataliePrescott', 'RoryMichaels', 'VivianDavis' ],
+        o: [ 'FaultyProjector', 'MissingReel', 'SuitOfArmor', 'Puzzlebox' ],
+        l: [ 'ArchiveVault', 'JammedDoor', 'LockedDoor', 'MarionsStage', 'PadlockedDoor', 'RunelockedDoor' ]
+        // x: [ '' ]
+    };
+
+    list = chosen(choices,'4A') ? [ 'N', 'CultRobes', 'JammedDoor' ] : [ 'VaultKey', 'Clue3', 'LockedDoor' ];
+    room_add( items, list, 'Bathroom 1' );
+
+    list = chosen(choices,'2A') ? [ 'N', 'SatchelOfTheVoid', 'Puzzlebox' ] : [ 'TheLostReel', 'Clue1', 'SuitOfArmor' ];
+    room_add( items, list, 'Basement Stairs' );
+
+    list = chosen(choices,'5A') ? [ 'N', 'SymbolOfTheElderLight' ] : [ 'Marionettes', 'Clue5' ];
+    room_add( items, list, 'Basement Storage' );
+
+    list = chosen(choices,'5A') ? [ 'SilverKey', 'Clue4' ] : [ 'N', 'CapsulesOfTranquility' ];
+    room_add( items, list, 'Freezer' );
+
+    list = chosen(choices,'5A') ? [ 'MarionsStage' ] : [ 'PadlockedDoor' ];
+    room_add( items, list, 'Operating Room' );
+
+    list = chosen(choices,'3A') ? [ 'CrescentBlade', 'Clue2', 'ArchiveVault' ] : [ 'N', 'Whiskey', 'RunelockedDoor' ];
+    room_add( items, list, 'Study' );
+
+    list = chosen(choices,'5A') ? [ 'N', 'DeVermisMysteriis', 'PadlockedDoor' ] : [ 'SilverKey', 'Clue4', 'MarionsStage' ];
+    room_add( items, list, 'Library' );
+
+    list = [ 'Clue6', 'UnreflectingMirror' ];
+    room_add( items, list, 'Chapel' );
+
+    list = chosen(choices,'3A') ? [ 'N', 'BrassKnuckles', 'RunelockedDoor' ] : [ 'CrescentBlade', 'Clue2', 'ArchiveVault' ];
+    room_add( items, list, 'Bathroom 2' );
+
+    list = [ 'FaultyProjector', 'MissingReel' ];
+    room_add( items, list, 'Nursery' );
+
+    list = chosen(choices,'5A') ? [ 'Marionettes', 'Clue5' ] : [ 'N', 'SymbolOfTheElderLight' ];
+    room_add( items, list, 'Gallery' );
+
+    list = chosen(choices,'2A') ? [ 'TheLostReel', 'Clue1', 'SuitOfArmor' ] : [ 'N', 'SatchelOfTheVoid', 'Puzzlebox' ];
+    room_add( items, list, 'Coat Room' );
+
+    list = chosen(choices,'4A') ? [ 'VaultKey', 'Clue3', 'LockedDoor' ] : [ 'N', 'TchoTchoTalisman', 'JammedDoor' ];
+    room_add( items, list, 'Dining Room' );
+
+    var unused_cards = get_unused_cards(all_cards['e'], items);
+    unused_cards.push('N2');
+
+    return { cards: all_cards, cards_rnd: unused_cards, map: items, keeper: keeper_inv, m_cards: mythos_cards, note: note_txt };
+}
 /*
     list = chosen(choices,'') ? [  ] : [  ];
     room_add( items, list, '' );
