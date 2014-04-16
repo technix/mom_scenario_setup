@@ -53,6 +53,23 @@ var cards_list = {
     RoryMichaels:       { type: 'e', name: '(Rory Michaels)' },
     VivianDavis:        { type: 'e', name: '(Vivian Davis)' },
 
+    // TYS
+    Costume:            { type: 'e', name: 'Costume' },
+    DeckOfFates:        { type: 'e', name: 'Deck of Fates' },
+    DreamDagger:        { type: 'e', name: 'Dream Dagger' },
+    JuliansAmulet:      { type: 'e', name: 'Julian\'s Amulet' },
+    KeyToCarcosa:       { type: 'e', name: 'Key to Carcosa' },
+    LockedTome:         { type: 'e', name: 'Locked Tome' },
+    Matches:            { type: 'e', name: 'Matches' },
+    MrsWylde:           { type: 'e', name: 'Mrs. Wylde' },
+    PropheticMirror:    { type: 'e', name: 'Prophetic Mirror' },
+    TheNecronomicon:    { type: 'e', name: 'The Necronomicon' },
+    TheScript:          { type: 'e', name: 'The Script' },
+    TheUnderstudy:      { type: 'e', name: 'The Understudy' },
+    TonicOfInspiration: { type: 'e', name: 'Tonic Of Inspiration' },
+    YellowMask:         { type: 'e', name: 'Yellow Mask' },
+    YellowSign:         { type: 'e', name: 'Yellow Sign x4' },
+
     N:                  { type: 'e', name: 'Nothing of interest' },
     N2:                 { type: 'e', name: 'Nothing of interest x2' },
     N3:                 { type: 'e', name: 'Nothing of interest x3' },
@@ -80,6 +97,9 @@ var cards_list = {
     ChimeLock:         { type: 'l', name: 'Chime Lock' }, //TDDUP
     ArchiveVault:      { type: 'l', name: 'Archive Vault' }, //HOF
     MarionsStage:      { type: 'l', name: 'Marion\'s Stage' }, //HOF
+    BrokenPadlock:     { type: 'l', name: 'Broken Padlock' }, //TYS
+    KingsChambers:     { type: 'l', name: 'King\'s Chambers' }, //TYS
+    RehearsalRoom:     { type: 'l', name: 'Rehearsal Room' }, //TYS
 
 
     Lockbox:           { type: 'o', name: 'Lockbox' },
@@ -93,6 +113,11 @@ var cards_list = {
     FaultyProjector:   { type: 'o', name: 'Faulty Projector' }, //HOF
     MissingReel:       { type: 'o', name: 'Missing Reel' }, //HOF
     SuitOfArmor:       { type: 'o', name: 'Suit of Armor' }, //HOF
+    Act1Scene7:        { type: 'o', name: 'Act 1 Scene 7' }, //TYS
+    AnchoredKey:       { type: 'o', name: 'Anchored Key' }, //TYS
+    ArcaneCandles:     { type: 'o', name: 'Arcane Candles' }, //TYS
+    DressRehearsal:    { type: 'o', name: 'Dress Rehearsal' }, //TYS
+
 
     Clue1: { type: 'c', name: 'Clue 1' },
     Clue2: { type: 'c', name: 'Clue 2' },
@@ -123,7 +148,12 @@ var keeper_cards_list = {
 
     // House of Fears
     BreakingCharacter: 'Breaking Character',
-    TheFourthWall: 'The Fourth Wall'
+    TheFourthWall: 'The Fourth Wall',
+
+    // The Yellow Sign
+    CalledByTheKing: 'Called by the King',
+    OpenAuditions: 'Open Auditions',
+    TheCourtOfCarcosa: 'The Court of Carcosa'
 };
 
 var mythos_cards_list = {
@@ -144,7 +174,8 @@ var scenarios_list = [
     { id: 4, name: 'Classroom Curses', clues: 4 },
     { id: 5, name: 'Green-Eyed Boy', clues: 6 },
     { id: 6, name: '[POD] Till Death Do Us Part', clues: 5 },
-    { id: 7, name: '[POD] House of Fears', clues: 5 }
+    { id: 7, name: '[POD] House of Fears', clues: 5 },
+    { id: 8, name: '[POD] The Yellow Sign', clues: 4 }
 ];
 
 
@@ -621,6 +652,67 @@ function map_scenario_7 (choices) {
 
     return { cards: all_cards, cards_rnd: unused_cards, map: items, keeper: keeper_inv, m_cards: mythos_cards, note: note_txt };
 }
+
+
+function map_scenario_8 (choices) {
+    var items = [];
+    var list;
+
+    var keeper_inv = {
+        cards: [ 'TheCourtOfCarcosa', 'CalledByTheKing', 'CommandMinion', 'EvilPresence', 'OpenAuditions' ],
+        threat: 4,
+        mythos: 1,
+        trauma: 0
+    };
+    var mythos_cards = [ 'downstairs', 'door', 'bat' ];
+    var note_txt = 'Place each remaining exploration card in empty room on your choice.';
+
+    var all_cards = {
+        e: [ 'BrassKnuckles', 'CapsulesOfTranquility', 'DeckOfFates', 'DreamDagger', 'JuliansAmulet',
+             'KeyToCarcosa', 'LockedTome', 'Matches', 'MrsWylde', 'PropheticMirror', 'SmithWesson',
+             'TheNecronomicon', 'TheScript', 'TheUnderstudy',
+             'TonicOfInspiration', 'Whiskey', 'YellowMask', 'YellowSign' ],
+        o: [ 'Act1Scene7', 'AnchoredKey', 'ArcaneCandles', 'DressRehearsal', 'ShortCirquit' ],
+        l: [ 'BrokenPadlock', 'KingsChambers', 'PadlockedDoor', 'RehearsalRoom' ],
+        x: [ 'Costume' ]
+    };
+
+    list = chosen(choices,'3A') ? [ 'JuliansAmulet', 'Whiskey', 'Act1Scene7' ] : [ 'KeyToCarcosa', 'Clue2', 'Act1Scene7' ];
+    room_add( items, list, 'Entryway' );
+
+    list = chosen(choices,'4A') ? [ 'TheUnderstudy', 'Clue3', 'AnchoredKey' ] : [ 'N', 'Matches', 'ShortCirquit' ];
+    room_add( items, list, 'FrontPorch' );
+
+    list = chosen(choices,'4A') ? [ 'N', 'Matches', 'ShortCirquit' ] : [ 'TheUnderstudy', 'Clue3', 'AnchoredKey' ];
+    room_add( items, list, 'Corner Hallway 1' );
+
+    list = chosen(choices,'2A') ? [ 'TheScript', 'Clue1', 'KingsChambers' ] : [ 'N2', 'BrokenPadlock' ];
+    room_add( items, list, 'Bathroom 1' );
+
+    list = chosen(choices,'4A') ? [ 'LockedTome', 'Clue4' ] : [ 'N', 'MrsWylde' ];
+    room_add( items, list, 'Coat Room' );
+
+    list = chosen(choices,'4A') ? [ 'N', 'MrsWylde' ] : [ 'LockedTome', 'Clue4' ];
+    room_add( items, list, 'Dining Room' );
+
+    list = chosen(choices,'3A') ? [ 'DeckOfFates', 'PropheticMirror', 'PadlockedDoor' ] : [ 'TonicOfInspiration', 'PropheticMirror', 'PadlockedDoor' ];
+    room_add( items, list, 'Secret Passage' );
+
+    list = chosen(choices,'3A') ? [ 'KeyToCarcosa', 'Clue2', 'DressRehearsal', 'RehearsalRoom' ] : [ 'JuliansAmulet', 'Whiskey', 'DressRehearsal', 'RehearsalRoom' ];
+    room_add( items, list, 'Chapel' );
+
+    list = [ 'TheNecronomicon', 'YellowMask', 'ArcaneCandles' ];
+    room_add( items, list, 'Basement Storage' );
+
+    list = chosen(choices,'2A') ? [ 'N2', 'BrokenPadlock' ] : [ 'TheScript', 'Clue1', 'KingsChambers' ];
+    room_add( items, list, 'Basement Stairs' );
+
+    var unused_cards = get_unused_cards(all_cards['e'], items);
+    // unused_cards.push('N2');
+
+    return { cards: all_cards, cards_rnd: unused_cards, map: items, keeper: keeper_inv, m_cards: mythos_cards, note: note_txt };
+}
+
 /*
     list = chosen(choices,'') ? [  ] : [  ];
     room_add( items, list, '' );
