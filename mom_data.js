@@ -107,7 +107,7 @@ var cards_list = {
     ManholeCover:      { type: 'o', name: 'Manhole Cover' },
     PowerFailure:      { type: 'o', name: 'Power Failure' },
     Puzzlebox:         { type: 'o', name: 'Puzzlebox' },
-    ShortCirquit:      { type: 'o', name: 'Short Circuit' },
+    ShortCircuit:      { type: 'o', name: 'Short Circuit' },
     Suitcase:          { type: 'o', name: 'Suitcase' },
     ImpassableDebris:  { type: 'o', name: 'Impassable Debris' }, //TDDUP
     FaultyProjector:   { type: 'o', name: 'Faulty Projector' }, //HOF
@@ -278,7 +278,7 @@ function map_scenario_2 (choices) {
         e: [ 'Axe', 'BrassKey', 'Crucifix', 'DeVermisMysteriis', 'DholChants',
              'Knife', 'MagicPhrase', 'Password', 'SaturnianWine', 'Sedative',
              'StartlingEvidence', 'Torch' ],
-        o: [ 'Lockbox', 'LockedCabinet', 'Puzzlebox', 'ShortCirquit' ],
+        o: [ 'Lockbox', 'LockedCabinet', 'Puzzlebox', 'ShortCircuit' ],
         l: [ 'BarredEntry', 'DreadfulPassage', 'MagicalLock', 'RunelockedDoor' ],
         x: [ 'CultRobes' ]
     };
@@ -286,7 +286,7 @@ function map_scenario_2 (choices) {
     list = chosen(choices,'2A') ? [ 'Clue1', 'BarredEntry' ] : [ 'DeVermisMysteriis', 'RunelockedDoor' ];
     room_add( items, list, 'Ceremony Room' );
 
-    list = chosen(choices,'4A') ? [ 'N', 'StartlingEvidence', 'ShortCirquit' ] : [ 'BrassKey', 'Clue4', 'Puzzlebox' ];
+    list = chosen(choices,'4A') ? [ 'N', 'StartlingEvidence', 'ShortCircuit' ] : [ 'BrassKey', 'Clue4', 'Puzzlebox' ];
     room_add( items, list, 'Basement Landing' );
 
     list = chosen(choices,'3A') ? [ 'Password', 'Clue2', 'MagicalLock' ] : [ 'N', 'Sedative', 'DreadfulPassage' ];
@@ -298,7 +298,7 @@ function map_scenario_2 (choices) {
     list = chosen(choices,'4A') ? [ 'BrassKey', 'Clue4', 'Puzzlebox' ] : [ 'N', 'DholChants', 'Lockbox' ];
     room_add( items, list, 'Secret Passage' );
 
-    list = chosen(choices,'4A') ? [ 'MagicPhrase', 'Clue3', 'LockedCabinet' ] : [ 'N', 'StartlingEvidence', 'ShortCirquit' ];
+    list = chosen(choices,'4A') ? [ 'MagicPhrase', 'Clue3', 'LockedCabinet' ] : [ 'N', 'StartlingEvidence', 'ShortCircuit' ];
     room_add( items, list, 'Study' );
 
     list = chosen(choices,'3A') ? [ 'N', 'Sedative', 'DreadfulPassage' ] : [ 'Password', 'Clue2', 'MagicalLock' ];
@@ -396,7 +396,7 @@ function map_scenario_4 (choices) {
         e: [ 'Axe', 'BrassKey', 'CeremonialSkull', 'Crowbar', 'DeVermisMysteriis',
              'FireExtinguisher', 'Lantern', 'MagicPhrase', 'RubyOfRlyeh',
              'Sedative', 'Shotgun', 'SilverKey', 'Sledgehammer', 'WhateleyDiary' ],
-        o: [ 'LockedCabinet', 'PowerFailure', 'ShortCirquit', 'Suitcase' ],
+        o: [ 'LockedCabinet', 'PowerFailure', 'ShortCircuit', 'Suitcase' ],
         l: [ 'DarkRoom', 'JammedDoor', 'LockedDoor', 'MagicalLock' ],
         x: [ 'PadlockedDoor' ]
     };
@@ -404,7 +404,7 @@ function map_scenario_4 (choices) {
     list = chosen(choices,'2A') ? [ 'Clue1', 'MagicalLock' ] : [ 'MagicPhrase', 'LockedDoor' ];
     room_add( items, list, 'Tower Room' );
 
-    list = chosen(choices,'3A') ? [ 'WhateleyDiary', 'ShortCirquit' ] : [ 'DeVermisMysteriis', 'ShortCirquit' ];
+    list = chosen(choices,'3A') ? [ 'WhateleyDiary', 'ShortCircuit' ] : [ 'DeVermisMysteriis', 'ShortCircuit' ];
     room_add( items, list, 'Attic Storage' );
 
     list = chosen(choices,'2A') ? [ 'MagicPhrase', 'LockedDoor' ] : [ 'Clue1', 'MagicalLock' ];
@@ -543,7 +543,7 @@ function map_scenario_6 (choices) {
              'BrassKnuckles', 'Machete', 'SmithWesson',
              'DholChants', 'ElderSign', 'NamelessCults', 'RubyOfRlyeh', 'Lantern',
              'WhateleyDiary', 'Whiskey' ],
-        o: [ 'ShortCirquit', 'ImpassableDebris' ],
+        o: [ 'ShortCircuit', 'ImpassableDebris' ],
         l: [ 'ChimeLock', 'ElectricLock', 'FleshDoor', 'HiddenEntrance', 'PadlockedDoor', 'RunelockedDoor' ],
         x: [ 'JammedDoor' ]
     };
@@ -566,10 +566,10 @@ function map_scenario_6 (choices) {
     list = chosen(choices,'3A') ? [ 'BradysHand', 'Clue2', 'ChimeLock' ] : [ 'N', 'ElderSign', 'RunelockedDoor' ];
     room_add( items, list, 'Freezer' );
 
-    list = chosen(choices,'2A') ? [ 'N', 'SmithWesson', 'ShortCirquit' ] : [ 'TheCure', 'Clue1', 'ImpassableDebris' ];
+    list = chosen(choices,'2A') ? [ 'N', 'SmithWesson', 'ShortCircuit' ] : [ 'TheCure', 'Clue1', 'ImpassableDebris' ];
     room_add( items, list, 'Hallway 1' );
 
-    list = chosen(choices,'2A') ? [ 'TheCure', 'Clue1', 'ImpassableDebris' ] : [ 'N', 'TchoTchoTalisman', 'ShortCirquit' ];
+    list = chosen(choices,'2A') ? [ 'TheCure', 'Clue1', 'ImpassableDebris' ] : [ 'N', 'TchoTchoTalisman', 'ShortCircuit' ];
     room_add( items, list, 'Library' );
 
     list = chosen(choices,'3A') ? [ 'N', 'ElderSign', 'RunelockedDoor' ] : [ 'BradysHand', 'Clue2', 'ChimeLock' ];
@@ -672,7 +672,7 @@ function map_scenario_8 (choices) {
              'KeyToCarcosa', 'LockedTome', 'Matches', 'MrsWylde', 'PropheticMirror', 'SmithWesson',
              'TheNecronomicon', 'TheScript', 'TheUnderstudy',
              'TonicOfInspiration', 'Whiskey', 'YellowMask', 'YellowSign' ],
-        o: [ 'Act1Scene7', 'AnchoredKey', 'ArcaneCandles', 'DressRehearsal', 'ShortCirquit' ],
+        o: [ 'Act1Scene7', 'AnchoredKey', 'ArcaneCandles', 'DressRehearsal', 'ShortCircuit' ],
         l: [ 'BrokenPadlock', 'KingsChambers', 'PadlockedDoor', 'RehearsalRoom' ],
         x: [ 'Costume' ]
     };
@@ -680,10 +680,10 @@ function map_scenario_8 (choices) {
     list = chosen(choices,'3A') ? [ 'JuliansAmulet', 'Whiskey', 'Act1Scene7' ] : [ 'KeyToCarcosa', 'Clue2', 'Act1Scene7' ];
     room_add( items, list, 'Entryway' );
 
-    list = chosen(choices,'4A') ? [ 'TheUnderstudy', 'Clue3', 'AnchoredKey' ] : [ 'N', 'Matches', 'ShortCirquit' ];
+    list = chosen(choices,'4A') ? [ 'TheUnderstudy', 'Clue3', 'AnchoredKey' ] : [ 'N', 'Matches', 'ShortCircuit' ];
     room_add( items, list, 'FrontPorch' );
 
-    list = chosen(choices,'4A') ? [ 'N', 'Matches', 'ShortCirquit' ] : [ 'TheUnderstudy', 'Clue3', 'AnchoredKey' ];
+    list = chosen(choices,'4A') ? [ 'N', 'Matches', 'ShortCircuit' ] : [ 'TheUnderstudy', 'Clue3', 'AnchoredKey' ];
     room_add( items, list, 'Corner Hallway 1' );
 
     list = chosen(choices,'2A') ? [ 'TheScript', 'Clue1', 'KingsChambers' ] : [ 'N2', 'BrokenPadlock' ];
