@@ -1,3 +1,4 @@
+'use strict';
 // Implementation of core game elements
 
 (function(exports) {

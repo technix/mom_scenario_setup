@@ -1,4 +1,5 @@
-    
+'use strict';
+
 angular.module('mom_cards', ['ngTouch']);
 
 function ChoiceCtrl($scope) {
