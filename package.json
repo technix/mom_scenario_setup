@@ -1,0 +1,23 @@
+{
+  "name": "mom_scenario_setup",
+  "version": "0.0.0",
+  "description": "Mansions of Madness scenario setup helper",
+  "main": "app.js",
+  "dependencies": {
+    "angular": "^1.4.9",
+    "angular-touch": "^1.4.9"
+  },
+  "scripts": {
+    "start": "http-server -a 0.0.0.0 -p 8000",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/technix/mom_scenario_setup.git"
+  },
+  "author": "Sergei Mozhaisky",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/technix/mom_scenario_setup/issues"
+  }
+}
