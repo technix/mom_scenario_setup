@@ -39,7 +39,7 @@ function ChoiceCtrl($scope) {
             }
         }
         if (is_ready == 1) {
-            $scope.setup = MoM.scenario[$scope.story.scenario]($scope.story.choices);
+            $scope.setup = MoM.use_scenario[$scope.story.scenario]($scope.story.choices);
         }
     }, true); // deep inspection of array
 

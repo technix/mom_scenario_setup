@@ -190,7 +190,7 @@ exports.MoM.scenarios_list = [
 ];
 
 
-exports.MoM.scenario = {
+exports.MoM.use_scenario = {
 room_add: function (items, list, room_name) {
     items.push({ room: room_name, cards: list });
 },
