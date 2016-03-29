@@ -1,4 +1,14 @@
-var cards_list = {
+// Implementation of core game elements
+
+(function(exports) {
+// ------
+
+// export as Game object, if not exist - create it
+if (! exports.MoM) {
+  exports.MoM = {};
+}
+
+exports.MoM.cards_list = {
     Axe:                { type: 'e', name: 'Axe' },
     BrassKey:           { type: 'e', name: 'Brass Key' },
     CeremonialSkull:    { type: 'e', name: 'Ceremonial Skull' },
@@ -127,7 +137,8 @@ var cards_list = {
     Clue6: { type: 'c', name: 'Clue 6' }
 };
 
-var keeper_cards_list = {
+
+exports.MoM.keeper_cards_list = {
     CommandMinion: 'Command Minion',
     CreatureOfNight: 'Creature of Night',
     Darkness: 'Darkness',
@@ -156,7 +167,7 @@ var keeper_cards_list = {
     TheCourtOfCarcosa: 'The Court of Carcosa'
 };
 
-var mythos_cards_list = {
+exports.MoM.mythos_cards_list = {
     bat: 'img/mythos_bat.png',
     door: 'img/mythos_door.png',
     downstairs: 'img/mythos_downstairs.png',
@@ -167,7 +178,7 @@ var mythos_cards_list = {
 };
 
 
-var scenarios_list = [
+exports.MoM.scenarios_list = [
     { id: 1, name: 'The Fall of House Lynch', clues: 3 },
     { id: 2, name: 'The Inner Sanctum', clues: 4 },
     { id: 3, name: 'Blood Ties', clues: 5 },
@@ -179,7 +190,15 @@ var scenarios_list = [
 ];
 
 
-function get_unused_cards(all_cards, items) {
+exports.MoM.scenario = {
+room_add: function (items, list, room_name) {
+    items.push({ room: room_name, cards: list });
+},
+chosen: function (choices, id) {
+    var indices = { '2A': 1, '3A': 2, '4A': 3, '5A': 4, '6A': 5};
+    return choices[ indices[id] ].selected == id;
+},
+get_unused_cards: function(all_cards, items) {
     var unused_cards = all_cards.slice(0);
     for (var i = 0; i < items.length; i++) {
         for (var j = 0; j < items[i]['cards'].length; j++) {
@@ -193,20 +212,11 @@ function get_unused_cards(all_cards, items) {
         }
     }
     return unused_cards;
-}
+},
 
-function room_add(items, list, room_name) {
-    //items.push({ room: room_name, cards: list.reverse() });
-    items.push({ room: room_name, cards: list });
-}
+// === Scenario 1: The Fall of House Lynch
 
-function chosen(choices, id) {
-    var indices = { '2A': 1, '3A': 2, '4A': 3, '5A': 4, '6A': 5};
-    return choices[ indices[id] ].selected == id;
-}
-
-
-function map_scenario_1 (choices) {
+1: function (choices) {
     var items = [];
     var list;
 
@@ -228,40 +238,41 @@ function map_scenario_1 (choices) {
     };
 
     list = [ 'N', 'SealedDoor' ];
-    room_add( items, list, 'Ceremony Room' );
+    this.room_add( items, list, 'Ceremony Room' );
 
-    list = chosen(choices,'2A') ? [ 'Clue1', 'MagicalLock' ] : [ 'Lantern', 'JammedDoor'];
-    room_add( items, list, 'Basement Landing' );
+    list = this.chosen(choices,'2A') ? [ 'Clue1', 'MagicalLock' ] : [ 'Lantern', 'JammedDoor'];
+    this.room_add( items, list, 'Basement Landing' );
 
-    list = chosen(choices,'3A') ? [ 'N', 'StartlingEvidence', 'DarkRoom' ] : [ 'MagicPhrase', 'Clue2', 'LockedDoor' ];
-    room_add( items, list, 'Guest Bedroom' );
+    list = this.chosen(choices,'3A') ? [ 'N', 'StartlingEvidence', 'DarkRoom' ] : [ 'MagicPhrase', 'Clue2', 'LockedDoor' ];
+    this.room_add( items, list, 'Guest Bedroom' );
 
-    list = chosen(choices,'3A') ? [ 'ElderSign', 'PadlockedDoor' ] : [ 'Shotgun', 'PadlockedDoor' ];
-    room_add( items, list, 'Storage Closet' );
+    list = this.chosen(choices,'3A') ? [ 'ElderSign', 'PadlockedDoor' ] : [ 'Shotgun', 'PadlockedDoor' ];
+    this.room_add( items, list, 'Storage Closet' );
 
-    list = chosen(choices,'3A') ? [ 'MagicPhrase', 'Clue2', 'Puzzlebox', 'LockedDoor' ] : [ 'N', 'StartlingEvidence', 'Suitcase', 'DarkRoom' ];
-    room_add( items, list, 'Master Bedroom' );
+    list = this.chosen(choices,'3A') ? [ 'MagicPhrase', 'Clue2', 'Puzzlebox', 'LockedDoor' ] : [ 'N', 'StartlingEvidence', 'Suitcase', 'DarkRoom' ];
+    this.room_add( items, list, 'Master Bedroom' );
 
-    list = chosen(choices,'3A') ? [ 'SilverKey', 'Clue3' ] : [ 'N', 'FireExtinguisher' ];
-    room_add( items, list, 'Kitchen' );
+    list = this.chosen(choices,'3A') ? [ 'SilverKey', 'Clue3' ] : [ 'N', 'FireExtinguisher' ];
+    this.room_add( items, list, 'Kitchen' );
 
-    list = chosen(choices,'3A') ? [ 'Shotgun', 'Suitcase' ] : [ 'ElderSign', 'Puzzlebox' ];
-    room_add( items, list, 'Freezer' );
+    list = this.chosen(choices,'3A') ? [ 'Shotgun', 'Suitcase' ] : [ 'ElderSign', 'Puzzlebox' ];
+    this.room_add( items, list, 'Freezer' );
 
-    list = chosen(choices,'3A') ? [ 'N', 'FireExtinguisher', 'PowerFailure' ] : [ 'SilverKey', 'Clue3', 'PowerFailure' ];
-    room_add( items, list, 'Operating Room' );
+    list = this.chosen(choices,'3A') ? [ 'N', 'FireExtinguisher', 'PowerFailure' ] : [ 'SilverKey', 'Clue3', 'PowerFailure' ];
+    this.room_add( items, list, 'Operating Room' );
 
-    list = chosen(choices,'2A') ? [ 'Axe', 'JammedDoor' ] : [ 'Clue1', 'MagicalLock' ];
-    room_add( items, list, 'Garden' );
+    list = this.chosen(choices,'2A') ? [ 'Axe', 'JammedDoor' ] : [ 'Clue1', 'MagicalLock' ];
+    this.room_add( items, list, 'Garden' );
 
-    var unused_cards = get_unused_cards(all_cards['e'], items);
+    var unused_cards = this.get_unused_cards(all_cards['e'], items);
     unused_cards.push('N5');
 
     return { cards: all_cards, cards_rnd: unused_cards, map: items, keeper: keeper_inv, m_cards: mythos_cards, note: note_txt };
-}
+},
 
+// === Scenario 2: The Inner Sanctum
 
-function map_scenario_2 (choices) {
+2: function (choices) {
     var items = [];
     var list;
 
@@ -283,38 +294,39 @@ function map_scenario_2 (choices) {
         x: [ 'CultRobes' ]
     };
 
-    list = chosen(choices,'2A') ? [ 'Clue1', 'BarredEntry' ] : [ 'DeVermisMysteriis', 'RunelockedDoor' ];
-    room_add( items, list, 'Ceremony Room' );
+    list = this.chosen(choices,'2A') ? [ 'Clue1', 'BarredEntry' ] : [ 'DeVermisMysteriis', 'RunelockedDoor' ];
+    this.room_add( items, list, 'Ceremony Room' );
 
-    list = chosen(choices,'4A') ? [ 'N', 'StartlingEvidence', 'ShortCircuit' ] : [ 'BrassKey', 'Clue4', 'Puzzlebox' ];
-    room_add( items, list, 'Basement Landing' );
+    list = this.chosen(choices,'4A') ? [ 'N', 'StartlingEvidence', 'ShortCircuit' ] : [ 'BrassKey', 'Clue4', 'Puzzlebox' ];
+    this.room_add( items, list, 'Basement Landing' );
 
-    list = chosen(choices,'3A') ? [ 'Password', 'Clue2', 'MagicalLock' ] : [ 'N', 'Sedative', 'DreadfulPassage' ];
-    room_add( items, list, 'Basement Storage' );
+    list = this.chosen(choices,'3A') ? [ 'Password', 'Clue2', 'MagicalLock' ] : [ 'N', 'Sedative', 'DreadfulPassage' ];
+    this.room_add( items, list, 'Basement Storage' );
 
-    list = chosen(choices,'4A') ? [ 'N', 'Crucifix', 'Lockbox' ] : [ 'MagicPhrase', 'Clue3', 'LockedCabinet' ];
-    room_add( items, list, 'Bathroom' );
+    list = this.chosen(choices,'4A') ? [ 'N', 'Crucifix', 'Lockbox' ] : [ 'MagicPhrase', 'Clue3', 'LockedCabinet' ];
+    this.room_add( items, list, 'Bathroom' );
 
-    list = chosen(choices,'4A') ? [ 'BrassKey', 'Clue4', 'Puzzlebox' ] : [ 'N', 'DholChants', 'Lockbox' ];
-    room_add( items, list, 'Secret Passage' );
+    list = this.chosen(choices,'4A') ? [ 'BrassKey', 'Clue4', 'Puzzlebox' ] : [ 'N', 'DholChants', 'Lockbox' ];
+    this.room_add( items, list, 'Secret Passage' );
 
-    list = chosen(choices,'4A') ? [ 'MagicPhrase', 'Clue3', 'LockedCabinet' ] : [ 'N', 'StartlingEvidence', 'ShortCircuit' ];
-    room_add( items, list, 'Study' );
+    list = this.chosen(choices,'4A') ? [ 'MagicPhrase', 'Clue3', 'LockedCabinet' ] : [ 'N', 'StartlingEvidence', 'ShortCircuit' ];
+    this.room_add( items, list, 'Study' );
 
-    list = chosen(choices,'3A') ? [ 'N', 'Sedative', 'DreadfulPassage' ] : [ 'Password', 'Clue2', 'MagicalLock' ];
-    room_add( items, list, 'Chasm' );
+    list = this.chosen(choices,'3A') ? [ 'N', 'Sedative', 'DreadfulPassage' ] : [ 'Password', 'Clue2', 'MagicalLock' ];
+    this.room_add( items, list, 'Chasm' );
 
-    list = chosen(choices,'2A') ? [ 'N', 'DeVermisMysteriis', 'RunelockedDoor' ] : [ 'Knife', 'Clue1', 'BarredEntry' ];
-    room_add( items, list, 'Crypt' );
+    list = this.chosen(choices,'2A') ? [ 'N', 'DeVermisMysteriis', 'RunelockedDoor' ] : [ 'Knife', 'Clue1', 'BarredEntry' ];
+    this.room_add( items, list, 'Crypt' );
 
-    var unused_cards = get_unused_cards(all_cards['e'], items);
+    var unused_cards = this.get_unused_cards(all_cards['e'], items);
     unused_cards.push('N4');
 
     return { cards: all_cards, cards_rnd: unused_cards, map: items, keeper: keeper_inv, m_cards: mythos_cards, note: note_txt };
-}
+},
 
+// === Scenario 3: Blood Ties
 
-function map_scenario_3 (choices) {
+3: function (choices) {
     var items = [];
     var list;
 
@@ -336,50 +348,52 @@ function map_scenario_3 (choices) {
              'PadlockedDoor', 'RunelockedDoor', 'SealedDoor' ]
     };
 
-    list = chosen(choices,'5A') ? [ 'WhateleyDiary', 'RunelockedDoor' ] : [ 'Colt38', 'PadlockedDoor' ];
-    room_add( items, list, 'Storage Closet' );
+    list = this.chosen(choices,'5A') ? [ 'WhateleyDiary', 'RunelockedDoor' ] : [ 'Colt38', 'PadlockedDoor' ];
+    this.room_add( items, list, 'Storage Closet' );
 
-    list = chosen(choices,'4A') ? [ 'N', 'FireExtinguisher', 'Lockbox' ] : [ 'MagicPhrase', 'Clue3', 'LockedCabinet' ];
-    room_add( items, list, 'Garden' );
+    list = this.chosen(choices,'4A') ? [ 'N', 'FireExtinguisher', 'Lockbox' ] : [ 'MagicPhrase', 'Clue3', 'LockedCabinet' ];
+    this.room_add( items, list, 'Garden' );
 
-    list = chosen(choices,'5A') ? [ 'N', 'Knife', 'DreadfulPassage' ] : [ 'Crowbar', 'Clue5', 'RunelockedDoor' ];
-    room_add( items, list, 'Front Porch' );
+    list = this.chosen(choices,'5A') ? [ 'N', 'Knife', 'DreadfulPassage' ] : [ 'Crowbar', 'Clue5', 'RunelockedDoor' ];
+    this.room_add( items, list, 'Front Porch' );
 
-    list = chosen(choices,'5A') ? [ 'N', 'ElderSign', 'Puzzlebox' ] : [ 'BrassKey', 'Clue4', 'ManholeCover' ];
-    room_add( items, list, 'Front Yard' );
+    list = this.chosen(choices,'5A') ? [ 'N', 'ElderSign', 'Puzzlebox' ] : [ 'BrassKey', 'Clue4', 'ManholeCover' ];
+    this.room_add( items, list, 'Front Yard' );
 
-    list = chosen(choices,'3A') ? [ 'SilverKey', 'Clue2', 'MagicalLock' ] : [ 'N', 'Crucifix', 'ElectricLock' ];
-    room_add( items, list, 'Mud Room' );
+    list = this.chosen(choices,'3A') ? [ 'SilverKey', 'Clue2', 'MagicalLock' ] : [ 'N', 'Crucifix', 'ElectricLock' ];
+    this.room_add( items, list, 'Mud Room' );
 
-    list = chosen(choices,'5A') ? [ 'Crowbar', 'Clue5', 'PadlockedDoor' ] : [ 'N', 'Knife', 'DreadfulPassage' ];
-    room_add( items, list, 'Storage Shed' );
+    list = this.chosen(choices,'5A') ? [ 'Crowbar', 'Clue5', 'PadlockedDoor' ] : [ 'N', 'Knife', 'DreadfulPassage' ];
+    this.room_add( items, list, 'Storage Shed' );
 
-    list = chosen(choices,'5A') ? [ 'BrassKey', 'Clue4', 'ManholeCover' ] : [ 'N', 'ElderSign', 'Puzzlebox' ];
-    room_add( items, list, 'Patio' );
+    list = this.chosen(choices,'5A') ? [ 'BrassKey', 'Clue4', 'ManholeCover' ] : [ 'N', 'ElderSign', 'Puzzlebox' ];
+    this.room_add( items, list, 'Patio' );
 
-    list = chosen(choices,'3A') ? [ 'N', 'Crucifix', 'ElectricLock' ] : [ 'SilverKey', 'Clue2', 'MagicalLock' ];
-    room_add( items, list, 'Root Cellar' );
+    list = this.chosen(choices,'3A') ? [ 'N', 'Crucifix', 'ElectricLock' ] : [ 'SilverKey', 'Clue2', 'MagicalLock' ];
+    this.room_add( items, list, 'Root Cellar' );
 
     list = [ 'N', 'SealedDoor' ];
-    room_add( items, list, 'Furnace Room' );
+    this.room_add( items, list, 'Furnace Room' );
 
-    list = chosen(choices,'2A') ? [ 'CeremonialSkull', 'Clue1', 'LockedDoor' ] : [ 'Torch', 'JammedDoor' ];
-    room_add( items, list, 'Crypt' );
+    list = this.chosen(choices,'2A') ? [ 'CeremonialSkull', 'Clue1', 'LockedDoor' ] : [ 'Torch', 'JammedDoor' ];
+    this.room_add( items, list, 'Crypt' );
 
-    list = chosen(choices,'4A') ? [ 'MagicPhrase', 'Clue3', 'LockedCabinet' ] : [ 'N', 'FireExtinguisher', 'Lockbox' ];
-    room_add( items, list, 'Chasm' );
+    list = this.chosen(choices,'4A') ? [ 'MagicPhrase', 'Clue3', 'LockedCabinet' ] : [ 'N', 'FireExtinguisher', 'Lockbox' ];
+    this.room_add( items, list, 'Chasm' );
 
-    list = chosen(choices,'2A') ? [ 'Torch', 'JammedDoor' ] : [ 'CeremonialSkull', 'Clue1', 'LockedDoor' ];
-    room_add( items, list, 'Cave 1' );
+    list = this.chosen(choices,'2A') ? [ 'Torch', 'JammedDoor' ] : [ 'CeremonialSkull', 'Clue1', 'LockedDoor' ];
+    this.room_add( items, list, 'Cave 1' );
 
-    var unused_cards = get_unused_cards(all_cards['e'], items);
+    var unused_cards = this.get_unused_cards(all_cards['e'], items);
     unused_cards.push('N5');
 
     return { cards: all_cards, cards_rnd: unused_cards, map: items, keeper: keeper_inv, m_cards: mythos_cards, note: note_txt };
-}
+},
 
 
-function map_scenario_4 (choices) {
+// === Scenario 4: Classroom Curses
+
+4: function (choices) {
     var items = [];
     var list;
 
@@ -401,53 +415,54 @@ function map_scenario_4 (choices) {
         x: [ 'PadlockedDoor' ]
     };
 
-    list = chosen(choices,'2A') ? [ 'Clue1', 'MagicalLock' ] : [ 'MagicPhrase', 'LockedDoor' ];
-    room_add( items, list, 'Tower Room' );
+    list = this.chosen(choices,'2A') ? [ 'Clue1', 'MagicalLock' ] : [ 'MagicPhrase', 'LockedDoor' ];
+    this.room_add( items, list, 'Tower Room' );
 
-    list = chosen(choices,'3A') ? [ 'WhateleyDiary', 'ShortCircuit' ] : [ 'DeVermisMysteriis', 'ShortCircuit' ];
-    room_add( items, list, 'Attic Storage' );
+    list = this.chosen(choices,'3A') ? [ 'WhateleyDiary', 'ShortCircuit' ] : [ 'DeVermisMysteriis', 'ShortCircuit' ];
+    this.room_add( items, list, 'Attic Storage' );
 
-    list = chosen(choices,'2A') ? [ 'MagicPhrase', 'LockedDoor' ] : [ 'Clue1', 'MagicalLock' ];
-    room_add( items, list, 'Library' );
+    list = this.chosen(choices,'2A') ? [ 'MagicPhrase', 'LockedDoor' ] : [ 'Clue1', 'MagicalLock' ];
+    this.room_add( items, list, 'Library' );
 
-    list = chosen(choices,'3A') ? [ 'DeVermisMysteriis', 'PowerFailure' ] : [ 'WhateleyDiary', 'PowerFailure' ];
-    room_add( items, list, 'Study' );
+    list = this.chosen(choices,'3A') ? [ 'DeVermisMysteriis', 'PowerFailure' ] : [ 'WhateleyDiary', 'PowerFailure' ];
+    this.room_add( items, list, 'Study' );
 
-    list = chosen(choices,'4A') ? [ 'BrassKey', 'Clue3', 'JammedDoor' ] : [ 'N', 'Crowbar', 'JammedDoor' ];
-    room_add( items, list, 'Furnace Room' );
+    list = this.chosen(choices,'4A') ? [ 'BrassKey', 'Clue3', 'JammedDoor' ] : [ 'N', 'Crowbar', 'JammedDoor' ];
+    this.room_add( items, list, 'Furnace Room' );
 
-    list = chosen(choices,'2A') ? [ 'RubyOfRlyeh' ] : [ 'Sedative' ];
-    room_add( items, list, 'Attic Loft' );
+    list = this.chosen(choices,'2A') ? [ 'RubyOfRlyeh' ] : [ 'Sedative' ];
+    this.room_add( items, list, 'Attic Loft' );
 
-    list = chosen(choices,'4A') ? [ 'Axe' ] : [ 'FireExtinguisher' ];
-    room_add( items, list, 'Hallway 1' );
+    list = this.chosen(choices,'4A') ? [ 'Axe' ] : [ 'FireExtinguisher' ];
+    this.room_add( items, list, 'Hallway 1' );
 
-    list = chosen(choices,'4A') ? [ 'FireExtinguisher' ] : [ 'Lantern' ];
-    room_add( items, list, 'Hallway 3' );
+    list = this.chosen(choices,'4A') ? [ 'FireExtinguisher' ] : [ 'Lantern' ];
+    this.room_add( items, list, 'Hallway 3' );
 
-    list = chosen(choices,'3A') ? [ 'N', 'CeremonialSkull', 'Suitcase' ] : [ 'SilverKey', 'Clue2', 'LockedCabinet' ];
-    room_add( items, list, 'Bathroom' );
+    list = this.chosen(choices,'3A') ? [ 'N', 'CeremonialSkull', 'Suitcase' ] : [ 'SilverKey', 'Clue2', 'LockedCabinet' ];
+    this.room_add( items, list, 'Bathroom' );
 
-    list = chosen(choices,'4A') ? [ 'Lantern' ] : [ 'Axe' ];
-    room_add( items, list, 'Laboratory' );
+    list = this.chosen(choices,'4A') ? [ 'Lantern' ] : [ 'Axe' ];
+    this.room_add( items, list, 'Laboratory' );
 
-    list = chosen(choices,'2A') ? [ 'Sedative' ] : [ 'RubyOfRlyeh' ];
-    room_add( items, list, 'Operating Room' );
+    list = this.chosen(choices,'2A') ? [ 'Sedative' ] : [ 'RubyOfRlyeh' ];
+    this.room_add( items, list, 'Operating Room' );
 
-    list = chosen(choices,'4A') ? [ 'N', 'Crowbar', 'DarkRoom' ] : [ 'BrassKey', 'Clue3', 'DarkRoom' ];
-    room_add( items, list, 'Freezer' );
+    list = this.chosen(choices,'4A') ? [ 'N', 'Crowbar', 'DarkRoom' ] : [ 'BrassKey', 'Clue3', 'DarkRoom' ];
+    this.room_add( items, list, 'Freezer' );
 
-    list = chosen(choices,'3A') ? [ 'SilverKey', 'Clue2', 'LockedCabinet' ] : [ 'N', 'CeremonialSkull', 'Suitcase' ];
-    room_add( items, list, 'Coat Room' );
+    list = this.chosen(choices,'3A') ? [ 'SilverKey', 'Clue2', 'LockedCabinet' ] : [ 'N', 'CeremonialSkull', 'Suitcase' ];
+    this.room_add( items, list, 'Coat Room' );
 
-    var unused_cards = get_unused_cards(all_cards['e'], items);
+    var unused_cards = this.get_unused_cards(all_cards['e'], items);
     unused_cards.push('N5');
 
     return { cards: all_cards, cards_rnd: unused_cards, map: items, keeper: keeper_inv, m_cards: mythos_cards, note: note_txt };
-}
+},
 
+// === Scenario 5: Green-Eyed Boy
 
-function map_scenario_5 (choices) {
+5: function (choices) {
     var items = [];
     var list;
 
@@ -472,59 +487,61 @@ function map_scenario_5 (choices) {
              'RunelockedDoor' ]
     };
 
-    list = chosen(choices,'6A') ? [ 'Password', 'Clue6' ] : [ 'N', 'Sledgehammer' ];
-    room_add( items, list, 'Coat Room' );
+    list = this.chosen(choices,'6A') ? [ 'Password', 'Clue6' ] : [ 'N', 'Sledgehammer' ];
+    this.room_add( items, list, 'Coat Room' );
 
-    list = chosen(choices,'6A') ? [ 'N', 'Sledgehammer' ] : [ 'Password', 'Clue6' ];
-    room_add( items, list, 'Dining Room' );
+    list = this.chosen(choices,'6A') ? [ 'N', 'Sledgehammer' ] : [ 'Password', 'Clue6' ];
+    this.room_add( items, list, 'Dining Room' );
 
-    list = chosen(choices,'6A') ? [ 'BrassKey', 'Clue5', 'BarredEntry' ] : [ 'N', 'DholChants', 'RunelockedDoor' ];
-    room_add( items, list, 'Kitchen Storage' );
+    list = this.chosen(choices,'6A') ? [ 'BrassKey', 'Clue5', 'BarredEntry' ] : [ 'N', 'DholChants', 'RunelockedDoor' ];
+    this.room_add( items, list, 'Kitchen Storage' );
 
-    list = chosen(choices,'2A') ? [ 'CeremonialSkull', 'Clue1', 'MagicalLock' ] : [ 'Colt38', 'PadlockedDoor' ];
-    room_add( items, list, 'Nursery' );
+    list = this.chosen(choices,'2A') ? [ 'CeremonialSkull', 'Clue1', 'MagicalLock' ] : [ 'Colt38', 'PadlockedDoor' ];
+    this.room_add( items, list, 'Nursery' );
 
-    list = chosen(choices,'6A') ? [ 'N', 'DholChants', 'RunelockedDoor' ] : [ 'BrassKey', 'Clue5', 'BarredEntry' ];
-    room_add( items, list, 'Library' );
+    list = this.chosen(choices,'6A') ? [ 'N', 'DholChants', 'RunelockedDoor' ] : [ 'BrassKey', 'Clue5', 'BarredEntry' ];
+    this.room_add( items, list, 'Library' );
 
-    list = chosen(choices,'5A') ? [ 'N', 'Sedative', 'Lockbox' ] : [ 'Crowbar', 'Clue4', 'LockedCabinet' ];
-    room_add( items, list, 'Laboratory' );
+    list = this.chosen(choices,'5A') ? [ 'N', 'Sedative', 'Lockbox' ] : [ 'Crowbar', 'Clue4', 'LockedCabinet' ];
+    this.room_add( items, list, 'Laboratory' );
 
     if (choices[0].selected == '1B') {
         list = [ 'N', 'OpeningTheGate' ];
         all_cards['l'].splice( all_cards['l'].indexOf( 'DreadfulPassage' ), 1 ); // remove
     }
     else {
-        list = chosen(choices,'2A') ? [ 'WhateleyDiary', 'DreadfulPassage' ] : [ 'CeremonialSkull', 'DreadfulPassage' ];
+        list = this.chosen(choices,'2A') ? [ 'WhateleyDiary', 'DreadfulPassage' ] : [ 'CeremonialSkull', 'DreadfulPassage' ];
         all_cards['l'].splice( all_cards['l'].indexOf( 'OpeningTheGate' ), 1 ); // remove
     }
-    room_add( items, list, 'Freezer' );
+    this.room_add( items, list, 'Freezer' );
 
-    list = chosen(choices,'4A') ? [ 'SilverKey', 'Clue3', 'ManholeCover' ] : [ 'N', 'NamelessCults', 'PowerFailure' ];
-    room_add( items, list, 'Secret Passage' );
+    list = this.chosen(choices,'4A') ? [ 'SilverKey', 'Clue3', 'ManholeCover' ] : [ 'N', 'NamelessCults', 'PowerFailure' ];
+    this.room_add( items, list, 'Secret Passage' );
 
-    list = chosen(choices,'4A') ? [ 'N', 'NamelessCults', 'PowerFailure' ] : [ 'SilverKey', 'Clue3', 'ManholeCover' ];
-    room_add( items, list, 'Attic Loft' );
+    list = this.chosen(choices,'4A') ? [ 'N', 'NamelessCults', 'PowerFailure' ] : [ 'SilverKey', 'Clue3', 'ManholeCover' ];
+    this.room_add( items, list, 'Attic Loft' );
 
-    list = chosen(choices,'5A') ? [ 'Crowbar', 'Clue4', 'LockedCabinet' ] : [ 'N', 'Sedative', 'Lockbox' ];
-    room_add( items, list, 'Hallway 3' );
+    list = this.chosen(choices,'5A') ? [ 'Crowbar', 'Clue4', 'LockedCabinet' ] : [ 'N', 'Sedative', 'Lockbox' ];
+    this.room_add( items, list, 'Hallway 3' );
 
-    list = chosen(choices,'3A') ? [ 'N', 'RubyOfRlyeh', 'DarkRoom' ] : [ 'MagicPhrase', 'Clue2', 'LockedDoor' ];
-    room_add( items, list, 'Master Bedroom' );
+    list = this.chosen(choices,'3A') ? [ 'N', 'RubyOfRlyeh', 'DarkRoom' ] : [ 'MagicPhrase', 'Clue2', 'LockedDoor' ];
+    this.room_add( items, list, 'Master Bedroom' );
 
-    list = chosen(choices,'3A') ? [ 'MagicPhrase', 'Clue2', 'LockedDoor' ] : [ 'N', 'RubyOfRlyeh', 'DarkRoom' ];
-    room_add( items, list, 'Bathroom 1' );
+    list = this.chosen(choices,'3A') ? [ 'MagicPhrase', 'Clue2', 'LockedDoor' ] : [ 'N', 'RubyOfRlyeh', 'DarkRoom' ];
+    this.room_add( items, list, 'Bathroom 1' );
 
-    list = chosen(choices,'2A') ? [ 'Colt38', 'PadlockedDoor' ] : [ 'WhateleyDiary', 'Clue1', 'MagicalLock' ];
-    room_add( items, list, 'Tower Room' );
+    list = this.chosen(choices,'2A') ? [ 'Colt38', 'PadlockedDoor' ] : [ 'WhateleyDiary', 'Clue1', 'MagicalLock' ];
+    this.room_add( items, list, 'Tower Room' );
 
-    var unused_cards = get_unused_cards(all_cards['e'], items);
+    var unused_cards = this.get_unused_cards(all_cards['e'], items);
     unused_cards.push('N5');
 
     return { cards: all_cards, cards_rnd: unused_cards, map: items, keeper: keeper_inv, m_cards: mythos_cards, note: note_txt };
-}
+},
 
-function map_scenario_6 (choices) {
+// === Scenario 6: Till Death Do Us Part 
+
+6: function (choices) {
     var items = [];
     var list;
 
@@ -548,44 +565,46 @@ function map_scenario_6 (choices) {
         x: [ 'JammedDoor' ]
     };
 
-    list = chosen(choices,'5A') ? [ 'N', 'Lantern' ] : [ 'NathanStone', 'Clue5' ];
-    room_add( items, list, 'Graveyard' );
+    list = this.chosen(choices,'5A') ? [ 'N', 'Lantern' ] : [ 'NathanStone', 'Clue5' ];
+    this.room_add( items, list, 'Graveyard' );
 
-    list = chosen(choices,'4A') ? [ 'N', 'DholChants', 'PadlockedDoor' ] : [ 'SheetMusic', 'Clue3', 'FleshDoor' ];
-    room_add( items, list, 'Furnace Room' );
+    list = this.chosen(choices,'4A') ? [ 'N', 'DholChants', 'PadlockedDoor' ] : [ 'SheetMusic', 'Clue3', 'FleshDoor' ];
+    this.room_add( items, list, 'Furnace Room' );
 
-    list = chosen(choices,'5A') ? [ 'NathanStone', 'Clue5' ] : [ 'N', 'Lantern' ];
-    room_add( items, list, 'Chapel' );
+    list = this.chosen(choices,'5A') ? [ 'NathanStone', 'Clue5' ] : [ 'N', 'Lantern' ];
+    this.room_add( items, list, 'Chapel' );
 
-    list = chosen(choices,'4A') ? [ 'SheetMusic', 'Clue3', 'FleshDoor' ] : [ 'N', 'NamelessCults', 'PadlockedDoor' ];
-    room_add( items, list, 'Secret Passage' );
+    list = this.chosen(choices,'4A') ? [ 'SheetMusic', 'Clue3', 'FleshDoor' ] : [ 'N', 'NamelessCults', 'PadlockedDoor' ];
+    this.room_add( items, list, 'Secret Passage' );
 
-    list = chosen(choices,'5A') ? [ 'N', 'BrassKnuckles', 'ElectricLock' ] : [ 'Machete', 'Clue4', 'HiddenEntrance' ];
-    room_add( items, list, 'Cave 1' );
+    list = this.chosen(choices,'5A') ? [ 'N', 'BrassKnuckles', 'ElectricLock' ] : [ 'Machete', 'Clue4', 'HiddenEntrance' ];
+    this.room_add( items, list, 'Cave 1' );
 
-    list = chosen(choices,'3A') ? [ 'BradysHand', 'Clue2', 'ChimeLock' ] : [ 'N', 'ElderSign', 'RunelockedDoor' ];
-    room_add( items, list, 'Freezer' );
+    list = this.chosen(choices,'3A') ? [ 'BradysHand', 'Clue2', 'ChimeLock' ] : [ 'N', 'ElderSign', 'RunelockedDoor' ];
+    this.room_add( items, list, 'Freezer' );
 
-    list = chosen(choices,'2A') ? [ 'N', 'SmithWesson', 'ShortCircuit' ] : [ 'TheCure', 'Clue1', 'ImpassableDebris' ];
-    room_add( items, list, 'Hallway 1' );
+    list = this.chosen(choices,'2A') ? [ 'N', 'SmithWesson', 'ShortCircuit' ] : [ 'TheCure', 'Clue1', 'ImpassableDebris' ];
+    this.room_add( items, list, 'Hallway 1' );
 
-    list = chosen(choices,'2A') ? [ 'TheCure', 'Clue1', 'ImpassableDebris' ] : [ 'N', 'TchoTchoTalisman', 'ShortCircuit' ];
-    room_add( items, list, 'Library' );
+    list = this.chosen(choices,'2A') ? [ 'TheCure', 'Clue1', 'ImpassableDebris' ] : [ 'N', 'TchoTchoTalisman', 'ShortCircuit' ];
+    this.room_add( items, list, 'Library' );
 
-    list = chosen(choices,'3A') ? [ 'N', 'ElderSign', 'RunelockedDoor' ] : [ 'BradysHand', 'Clue2', 'ChimeLock' ];
-    room_add( items, list, 'Coat Room' );
+    list = this.chosen(choices,'3A') ? [ 'N', 'ElderSign', 'RunelockedDoor' ] : [ 'BradysHand', 'Clue2', 'ChimeLock' ];
+    this.room_add( items, list, 'Coat Room' );
 
-    list = chosen(choices,'5A') ? [ 'Machete', 'Clue4', 'HiddenEntrance' ] : [ 'N', 'BrassKnuckles', 'ElectricLock' ];
-    room_add( items, list, 'Basement Landing' );
+    list = this.chosen(choices,'5A') ? [ 'Machete', 'Clue4', 'HiddenEntrance' ] : [ 'N', 'BrassKnuckles', 'ElectricLock' ];
+    this.room_add( items, list, 'Basement Landing' );
 
-    var unused_cards = get_unused_cards(all_cards['e'], items);
+    var unused_cards = this.get_unused_cards(all_cards['e'], items);
     unused_cards.push('N6');
 
     return { cards: all_cards, cards_rnd: unused_cards, map: items, keeper: keeper_inv, m_cards: mythos_cards, note: note_txt };
-}
+},
 
 
-function map_scenario_7 (choices) {
+// Scenario 7: House Of Fears
+
+7: function (choices) {
     var items = [];
     var list;
 
@@ -608,53 +627,55 @@ function map_scenario_7 (choices) {
         // x: [ '' ]
     };
 
-    list = chosen(choices,'4A') ? [ 'N', 'CultRobes', 'JammedDoor' ] : [ 'VaultKey', 'Clue3', 'LockedDoor' ];
-    room_add( items, list, 'Bathroom 1' );
+    list = this.chosen(choices,'4A') ? [ 'N', 'CultRobes', 'JammedDoor' ] : [ 'VaultKey', 'Clue3', 'LockedDoor' ];
+    this.room_add( items, list, 'Bathroom 1' );
 
-    list = chosen(choices,'2A') ? [ 'N', 'SatchelOfTheVoid', 'Puzzlebox' ] : [ 'TheLostReel', 'Clue1', 'SuitOfArmor' ];
-    room_add( items, list, 'Basement Stairs' );
+    list = this.chosen(choices,'2A') ? [ 'N', 'SatchelOfTheVoid', 'Puzzlebox' ] : [ 'TheLostReel', 'Clue1', 'SuitOfArmor' ];
+    this.room_add( items, list, 'Basement Stairs' );
 
-    list = chosen(choices,'5A') ? [ 'N', 'SymbolOfTheElderLight' ] : [ 'Marionettes', 'Clue5' ];
-    room_add( items, list, 'Basement Storage' );
+    list = this.chosen(choices,'5A') ? [ 'N', 'SymbolOfTheElderLight' ] : [ 'Marionettes', 'Clue5' ];
+    this.room_add( items, list, 'Basement Storage' );
 
-    list = chosen(choices,'5A') ? [ 'SilverKey', 'Clue4' ] : [ 'N', 'CapsulesOfTranquility' ];
-    room_add( items, list, 'Freezer' );
+    list = this.chosen(choices,'5A') ? [ 'SilverKey', 'Clue4' ] : [ 'N', 'CapsulesOfTranquility' ];
+    this.room_add( items, list, 'Freezer' );
 
-    list = chosen(choices,'5A') ? [ 'MarionsStage' ] : [ 'PadlockedDoor' ];
-    room_add( items, list, 'Operating Room' );
+    list = this.chosen(choices,'5A') ? [ 'MarionsStage' ] : [ 'PadlockedDoor' ];
+    this.room_add( items, list, 'Operating Room' );
 
-    list = chosen(choices,'3A') ? [ 'CrescentBlade', 'Clue2', 'ArchiveVault' ] : [ 'N', 'Whiskey', 'RunelockedDoor' ];
-    room_add( items, list, 'Study' );
+    list = this.chosen(choices,'3A') ? [ 'CrescentBlade', 'Clue2', 'ArchiveVault' ] : [ 'N', 'Whiskey', 'RunelockedDoor' ];
+    this.room_add( items, list, 'Study' );
 
-    list = chosen(choices,'5A') ? [ 'N', 'DeVermisMysteriis', 'PadlockedDoor' ] : [ 'SilverKey', 'Clue4', 'MarionsStage' ];
-    room_add( items, list, 'Library' );
+    list = this.chosen(choices,'5A') ? [ 'N', 'DeVermisMysteriis', 'PadlockedDoor' ] : [ 'SilverKey', 'Clue4', 'MarionsStage' ];
+    this.room_add( items, list, 'Library' );
 
     list = [ 'Clue6', 'UnreflectingMirror' ];
-    room_add( items, list, 'Chapel' );
+    this.room_add( items, list, 'Chapel' );
 
-    list = chosen(choices,'3A') ? [ 'N', 'BrassKnuckles', 'RunelockedDoor' ] : [ 'CrescentBlade', 'Clue2', 'ArchiveVault' ];
-    room_add( items, list, 'Bathroom 2' );
+    list = this.chosen(choices,'3A') ? [ 'N', 'BrassKnuckles', 'RunelockedDoor' ] : [ 'CrescentBlade', 'Clue2', 'ArchiveVault' ];
+    this.room_add( items, list, 'Bathroom 2' );
 
     list = [ 'FaultyProjector', 'MissingReel' ];
-    room_add( items, list, 'Nursery' );
+    this.room_add( items, list, 'Nursery' );
 
-    list = chosen(choices,'5A') ? [ 'Marionettes', 'Clue5' ] : [ 'N', 'SymbolOfTheElderLight' ];
-    room_add( items, list, 'Gallery' );
+    list = this.chosen(choices,'5A') ? [ 'Marionettes', 'Clue5' ] : [ 'N', 'SymbolOfTheElderLight' ];
+    this.room_add( items, list, 'Gallery' );
 
-    list = chosen(choices,'2A') ? [ 'TheLostReel', 'Clue1', 'SuitOfArmor' ] : [ 'N', 'SatchelOfTheVoid', 'Puzzlebox' ];
-    room_add( items, list, 'Coat Room' );
+    list = this.chosen(choices,'2A') ? [ 'TheLostReel', 'Clue1', 'SuitOfArmor' ] : [ 'N', 'SatchelOfTheVoid', 'Puzzlebox' ];
+    this.room_add( items, list, 'Coat Room' );
 
-    list = chosen(choices,'4A') ? [ 'VaultKey', 'Clue3', 'LockedDoor' ] : [ 'N', 'TchoTchoTalisman', 'JammedDoor' ];
-    room_add( items, list, 'Dining Room' );
+    list = this.chosen(choices,'4A') ? [ 'VaultKey', 'Clue3', 'LockedDoor' ] : [ 'N', 'TchoTchoTalisman', 'JammedDoor' ];
+    this.room_add( items, list, 'Dining Room' );
 
-    var unused_cards = get_unused_cards(all_cards['e'], items);
+    var unused_cards = this.get_unused_cards(all_cards['e'], items);
     unused_cards.push('N2');
 
     return { cards: all_cards, cards_rnd: unused_cards, map: items, keeper: keeper_inv, m_cards: mythos_cards, note: note_txt };
-}
+},
 
 
-function map_scenario_8 (choices) {
+// Scenario 8: The Yellow Sign
+
+8: function (choices) {
     var items = [];
     var list;
 
@@ -677,43 +698,44 @@ function map_scenario_8 (choices) {
         x: [ 'Costume' ]
     };
 
-    list = chosen(choices,'3A') ? [ 'JuliansAmulet', 'Whiskey', 'Act1Scene7' ] : [ 'KeyToCarcosa', 'Clue2', 'Act1Scene7' ];
-    room_add( items, list, 'Entryway' );
+    list = this.chosen(choices,'3A') ? [ 'JuliansAmulet', 'Whiskey', 'Act1Scene7' ] : [ 'KeyToCarcosa', 'Clue2', 'Act1Scene7' ];
+    this.room_add( items, list, 'Entryway' );
 
-    list = chosen(choices,'4A') ? [ 'TheUnderstudy', 'Clue3', 'AnchoredKey' ] : [ 'N', 'Matches', 'ShortCircuit' ];
-    room_add( items, list, 'FrontPorch' );
+    list = this.chosen(choices,'4A') ? [ 'TheUnderstudy', 'Clue3', 'AnchoredKey' ] : [ 'N', 'Matches', 'ShortCircuit' ];
+    this.room_add( items, list, 'FrontPorch' );
 
-    list = chosen(choices,'4A') ? [ 'N', 'Matches', 'ShortCircuit' ] : [ 'TheUnderstudy', 'Clue3', 'AnchoredKey' ];
-    room_add( items, list, 'Corner Hallway 1' );
+    list = this.chosen(choices,'4A') ? [ 'N', 'Matches', 'ShortCircuit' ] : [ 'TheUnderstudy', 'Clue3', 'AnchoredKey' ];
+    this.room_add( items, list, 'Corner Hallway 1' );
 
-    list = chosen(choices,'2A') ? [ 'TheScript', 'Clue1', 'KingsChambers' ] : [ 'N2', 'BrokenPadlock' ];
-    room_add( items, list, 'Bathroom 1' );
+    list = this.chosen(choices,'2A') ? [ 'TheScript', 'Clue1', 'KingsChambers' ] : [ 'N2', 'BrokenPadlock' ];
+    this.room_add( items, list, 'Bathroom 1' );
 
-    list = chosen(choices,'4A') ? [ 'LockedTome', 'Clue4' ] : [ 'N', 'MrsWylde' ];
-    room_add( items, list, 'Coat Room' );
+    list = this.chosen(choices,'4A') ? [ 'LockedTome', 'Clue4' ] : [ 'N', 'MrsWylde' ];
+    this.room_add( items, list, 'Coat Room' );
 
-    list = chosen(choices,'4A') ? [ 'N', 'MrsWylde' ] : [ 'LockedTome', 'Clue4' ];
-    room_add( items, list, 'Dining Room' );
+    list = this.chosen(choices,'4A') ? [ 'N', 'MrsWylde' ] : [ 'LockedTome', 'Clue4' ];
+    this.room_add( items, list, 'Dining Room' );
 
-    list = chosen(choices,'3A') ? [ 'DeckOfFates', 'PropheticMirror', 'PadlockedDoor' ] : [ 'TonicOfInspiration', 'PropheticMirror', 'PadlockedDoor' ];
-    room_add( items, list, 'Secret Passage' );
+    list = this.chosen(choices,'3A') ? [ 'DeckOfFates', 'PropheticMirror', 'PadlockedDoor' ] : [ 'TonicOfInspiration', 'PropheticMirror', 'PadlockedDoor' ];
+    this.room_add( items, list, 'Secret Passage' );
 
-    list = chosen(choices,'3A') ? [ 'KeyToCarcosa', 'Clue2', 'DressRehearsal', 'RehearsalRoom' ] : [ 'JuliansAmulet', 'Whiskey', 'DressRehearsal', 'RehearsalRoom' ];
-    room_add( items, list, 'Chapel' );
+    list = this.chosen(choices,'3A') ? [ 'KeyToCarcosa', 'Clue2', 'DressRehearsal', 'RehearsalRoom' ] : [ 'JuliansAmulet', 'Whiskey', 'DressRehearsal', 'RehearsalRoom' ];
+    this.room_add( items, list, 'Chapel' );
 
     list = [ 'TheNecronomicon', 'YellowMask', 'ArcaneCandles' ];
-    room_add( items, list, 'Basement Storage' );
+    this.room_add( items, list, 'Basement Storage' );
 
-    list = chosen(choices,'2A') ? [ 'N2', 'BrokenPadlock' ] : [ 'TheScript', 'Clue1', 'KingsChambers' ];
-    room_add( items, list, 'Basement Stairs' );
+    list = this.chosen(choices,'2A') ? [ 'N2', 'BrokenPadlock' ] : [ 'TheScript', 'Clue1', 'KingsChambers' ];
+    this.room_add( items, list, 'Basement Stairs' );
 
-    var unused_cards = get_unused_cards(all_cards['e'], items);
+    var unused_cards = this.get_unused_cards(all_cards['e'], items);
     // unused_cards.push('N2');
 
     return { cards: all_cards, cards_rnd: unused_cards, map: items, keeper: keeper_inv, m_cards: mythos_cards, note: note_txt };
 }
 
-/*
-    list = chosen(choices,'') ? [  ] : [  ];
-    room_add( items, list, '' );
-*/
+
+};
+
+// ------
+}(this));

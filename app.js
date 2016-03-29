@@ -2,10 +2,10 @@
 angular.module('mom_cards', ['ngTouch']);
 
 function ChoiceCtrl($scope) {
-    $scope.scenarios = scenarios_list;
-    $scope.cards = cards_list;
-    $scope.keeper_cards = keeper_cards_list;
-    $scope.mythos_cards = mythos_cards_list;
+    $scope.scenarios = MoM.scenarios_list;
+    $scope.cards = MoM.cards_list;
+    $scope.keeper_cards = MoM.keeper_cards_list;
+    $scope.mythos_cards = MoM.mythos_cards_list;
 
     $scope.story = {
         scenario: 1,
@@ -39,7 +39,7 @@ function ChoiceCtrl($scope) {
             }
         }
         if (is_ready == 1) {
-            eval('$scope.setup = map_scenario_' + $scope.story.scenario + '($scope.story.choices);');
+            $scope.setup = MoM.scenario[$scope.story.scenario]($scope.story.choices);
         }
     }, true); // deep inspection of array
 
