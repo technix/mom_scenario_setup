@@ -1,10 +1,17 @@
 'use strict';
 
-angular.module('mom_cards', ['ngTouch']);
+var mansionsApp = angular.module('mansionsApp', [
+  'ngTouch',
+  'mansionsControllers'
+]);
 
-function ChoiceCtrl($scope) {
+
+var mansionsControllers = angular.module('mansionsControllers', []);
+
+mansionsControllers.controller('mansionsCtrl', ['$scope',
+  function($scope) {
     $scope.scenarios = MoM.scenarios_list;
-    $scope.cards = MoM.cards_list;
+    $scope.cards     = MoM.cards_list;
     $scope.keeper_cards = MoM.keeper_cards_list;
     $scope.mythos_cards = MoM.mythos_cards_list;
 
@@ -50,4 +57,5 @@ function ChoiceCtrl($scope) {
             $scope.story.choices[i].selected = $scope.story.choices[i].values[v];
         }
     };
-}
+
+}]);
