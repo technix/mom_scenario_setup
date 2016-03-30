@@ -98,45 +98,56 @@
     <div class="panel-heading">
         <h3 class="panel-title">Cards list</h3>
     </div>
-    <table class="table">
-    <tbody>
-    <tr>
-        <td class="lead">
-            <h4 class="text-primary">Exploration</h4>
-            <span ng-repeat="card in setup.cards['e']"><nobr>{{MoM.exploration_cards[card].name || '###'}}</nobr>{{ $last ? '' : ' &middot; ' }}</span>
-        </td>
-        <td class="lead"><span class="label label-default">{{setup.cards['e'].length}}</span></td>
-    </tr>
-    <tr>
-        <td class="lead">
-            <h4 class="text-primary"><span class="glyphicon glyphicon-link" aria-hidden="true"></span> Obstacles</h4>
-            <span ng-repeat="card in setup.cards['o']"><nobr>{{MoM.exploration_cards[card].name || '###'}}</nobr>{{ $last ? '' : ' &middot; ' }}</span>
-        </td>
-        <td class="lead"><span class="label label-default">{{setup.cards['o'].length}}</span></td>
-    </tr>
-    <tr>
-        <td class="lead">
-            <h4 class="text-primary"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Locks</h4>
-            <span ng-repeat="card in setup.cards['l']"><nobr>{{MoM.exploration_cards[card].name || '###'}}</nobr>{{ $last ? '' : ' &middot; ' }}</span>
-        </td>
-        <td class="lead"><span class="label label-default">{{setup.cards['l'].length}}</span></td>
-    </tr>
-    <tr ng-class="{ hide: setup.cards['x'] == undefined }">
-        <td class="lead">
-            <h4 class="text-primary">Extra cards</h4>
-            <span ng-repeat="card in setup.cards['x']">{{MoM.exploration_cards[card].name || '###'}}{{ $last ? '' : ' &middot; ' }}</span>
-        </td>
-        <td></td>
-    </tr>
-    <tr ng-class="{ hide: setup.note == '' }">
-        <td>
-            <h4 class="text-primary">Note</h4>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Exploration
+            <span class="label label-default pull-right">{{setup.cards['e'].length}}</span>
+        </div>
+        <div class="panel-body lead">
+            <span ng-repeat="card in setup.cards['e']"><nobr>{{MoM.exploration_cards[card].name || '###'}}</nobr>{{ $last ? '' : '&nbsp;&middot; ' }}</span>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span class="glyphicon glyphicon-link" aria-hidden="true"></span> Obstacles
+            <span class="label label-default pull-right">{{setup.cards['o'].length}}</span>
+        </div>
+        <div class="panel-body lead">
+            <span ng-repeat="card in setup.cards['o']"><nobr>{{MoM.exploration_cards[card].name || '###'}}</nobr>{{ $last ? '' : '&nbsp;&middot; ' }}</span>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Locks
+            <span class="label label-default pull-right">{{setup.cards['l'].length}}</span>
+        </div>
+        <div class="panel-body lead">
+            <span ng-repeat="card in setup.cards['l']"><nobr>{{MoM.exploration_cards[card].name || '###'}}</nobr>{{ $last ? '' : '&nbsp;&middot; ' }}</span>
+        </div>
+    </div>
+
+    <div class="panel panel-default" ng-class="{ hide: setup.cards['x'] == undefined }">
+        <div class="panel-heading">
+            Extra cards
+        </div>
+        <div class="panel-body lead">
+            <span ng-repeat="card in setup.cards['x']">{{MoM.exploration_cards[card].name || '###'}}{{ $last ? '' : '&nbsp;&middot; ' }}</span>
+        </div>
+    </div>
+
+
+    <div class="panel panel-default" ng-class="{ hide: setup.note == '' }">
+        <div class="panel-heading">
+            <span class="glyphicon glyphicon-file" aria-hidden="true"></span> Note
+        </div>
+        <div class="panel-body">
             {{setup.note}}
-        </td>
-        <td></td>
-    </tr>
-    </tbody>
-    </table>
+        </div>
+    </div>
+
 </div>
 
 
