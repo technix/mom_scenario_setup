@@ -30,7 +30,7 @@
           <label for="select-scenario" class="col-xs-2 control-label">Scenario</label>
           <div class="col-xs-10">
             <select class="form-control input-lg" name="select-scenario" id="select-scenario" ng-model="story.scenario">
-                <option ng-repeat="item in scenarios" value="{{item.id}}">{{item.name}}</option>
+                <option ng-repeat="item in MoM.scenarios" value="{{item.id}}">{{item.name}}</option>
             </select>
           </div>
         </div>
@@ -67,14 +67,14 @@
     <tr>
         <th class="text-muted"><nbsp>Keeper cards</nbsp></th>
         <td class="lead">
-            <span ng-repeat="card in setup.keeper.cards">{{keeper_cards[card] || '###'}}{{ $last ? '' : ' &middot; ' }}</span>
+            <span ng-repeat="card in setup.keeper.cards">{{MoM.keeper_cards[card] || '###'}}{{ $last ? '' : ' &middot; ' }}</span>
         </td>
         <td></td>
     </tr>   
     <tr>
         <th class="text-muted"><nbsp>Mythos cards</nbsp></th>
         <td class="lead">
-            <span ng-repeat="card in setup.m_cards"><img ng-src="{{mythos_cards[card]}}" style="width: 40px; height: 40px">&nbsp;</span>
+            <span ng-repeat="card in setup.m_cards"><img ng-src="{{MoM.mythos_cards[card]}}" style="width: 40px; height: 40px">&nbsp;</span>
         </td>
         <td></td>
     </tr>
@@ -101,28 +101,28 @@
     <tr>
         <th class="text-muted">Exploration</th>
         <td class="lead">
-            <span ng-repeat="card in setup.cards['e']"><nobr>{{cards[card].name || '###'}}</nobr>{{ $last ? '' : ' &middot; ' }}</span>
+            <span ng-repeat="card in setup.cards['e']"><nobr>{{MoM.exploration_cards[card].name || '###'}}</nobr>{{ $last ? '' : ' &middot; ' }}</span>
         </td>
         <td><span class="label label-primary">{{setup.cards['e'].length}}</span></td>
     </tr>
     <tr>
         <th class="text-muted"><nobr><span class="label label-default">?</span> Obstacles</nobr></th>
         <td class="lead">
-            <span ng-repeat="card in setup.cards['o']"><nobr>{{cards[card].name || '###'}}</nobr>{{ $last ? '' : ' &middot; ' }}</span>
+            <span ng-repeat="card in setup.cards['o']"><nobr>{{MoM.exploration_cards[card].name || '###'}}</nobr>{{ $last ? '' : ' &middot; ' }}</span>
         </td>
         <td><span class="label label-primary">{{setup.cards['o'].length}}</span></td>
     </tr>
     <tr>
         <th class="text-muted"><nobr><span class="label label-default">[}</span> Locks</nobr></th>
         <td class="lead">
-            <span ng-repeat="card in setup.cards['l']"><nobr>{{cards[card].name || '###'}}</nobr>{{ $last ? '' : ' &middot; ' }}</span>
+            <span ng-repeat="card in setup.cards['l']"><nobr>{{MoM.exploration_cards[card].name || '###'}}</nobr>{{ $last ? '' : ' &middot; ' }}</span>
         </td>
         <td><span class="label label-primary">{{setup.cards['l'].length}}</span></td>
     </tr>
     <tr ng-class="{ hide: setup.cards['x'] == undefined }">
         <th class="text-muted">Extra cards</th>
         <td class="lead">
-            <span ng-repeat="card in setup.cards['x']">{{cards[card].name || '###'}}{{ $last ? '' : ' &middot; ' }}</span>
+            <span ng-repeat="card in setup.cards['x']">{{MoM.exploration_cards[card].name || '###'}}{{ $last ? '' : ' &middot; ' }}</span>
         </td>
         <td></td>
     </tr>
@@ -146,8 +146,8 @@
         <td class="lead">
         <ul class="list-unstyled" style="margin-bottom: 0px">
             <li ng-repeat="card in room.cards">
-                {{cards[card].name || '###'}}
-                <span class="label label-default" ng-class="{ hide: cards[card].type != 'l' && cards[card].type != 'o'  }">{{cards[card].type == 'l' ? '[}' : cards[card].type == 'o' ? '?' : ''}}</span>
+                {{MoM.exploration_cards[card].name || '###'}}
+                <span class="label label-default" ng-class="{ hide: MoM.exploration_cards[card].type != 'l' && MoM.exploration_cards[card].type != 'o'  }">{{MoM.exploration_cards[card].type == 'l' ? '[}' : MoM.exploration_cards[card].type == 'o' ? '?' : ''}}</span>
             </li>
         </ul>
         </td>
@@ -156,7 +156,7 @@
     <tr>
         <td class="lead">
         <ul class="list-unstyled">
-            <li ng-repeat="card in setup.cards_rnd">{{cards[card].name || '###'}}</li>
+            <li ng-repeat="card in setup.cards_rnd">{{MoM.exploration_cards[card].name || '###'}}</li>
         </ul>
         </td>
         <td><p class="text-muted"><i>Random</i></p></td>
@@ -170,7 +170,7 @@
     <h2>Room setup</h2>
     <p>
     <ul class="list-group">
-    <li class="list-group-item lead" ng-repeat="room in setup.map" ng-init="topcard = cards[room.cards.slice(-1)[0]]"><span class="label label-primary">{{room.cards.length}}</span>
+    <li class="list-group-item lead" ng-repeat="room in setup.map" ng-init="topcard = MoM.exploration_cards[room.cards.slice(-1)[0]]"><span class="label label-primary">{{room.cards.length}}</span>
     <span class="label label-default">{{topcard.type == 'l' ? '[}' : topcard.type == 'o' ? '?' : '&nbsp;&nbsp;'}}</span>
     {{room.room}}
     </li>

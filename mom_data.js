@@ -5,11 +5,28 @@
 // ------
 
 // export as Game object, if not exist - create it
-if (! exports.MoM) {
-  exports.MoM = {};
+if (! exports.Mansions) {
+  exports.Mansions = {};
 }
 
-exports.MoM.cards_list = {
+exports.Mansions.data = {
+
+// ===
+
+scenarios: [
+    { id: 1, name: 'The Fall of House Lynch', clues: 3 },
+    { id: 2, name: 'The Inner Sanctum', clues: 4 },
+    { id: 3, name: 'Blood Ties', clues: 5 },
+    { id: 4, name: 'Classroom Curses', clues: 4 },
+    { id: 5, name: 'Green-Eyed Boy', clues: 6 },
+    { id: 6, name: '[POD] Till Death Do Us Part', clues: 5 },
+    { id: 7, name: '[POD] House of Fears', clues: 5 },
+    { id: 8, name: '[POD] The Yellow Sign', clues: 4 }
+],
+
+// ===
+
+exploration_cards: {
     Axe:                { type: 'e', name: 'Axe' },
     BrassKey:           { type: 'e', name: 'Brass Key' },
     CeremonialSkull:    { type: 'e', name: 'Ceremonial Skull' },
@@ -136,10 +153,11 @@ exports.MoM.cards_list = {
     Clue4: { type: 'c', name: 'Clue 4' },
     Clue5: { type: 'c', name: 'Clue 5' },
     Clue6: { type: 'c', name: 'Clue 6' }
-};
+},
 
+// ===
 
-exports.MoM.keeper_cards_list = {
+keeper_cards: {
     CommandMinion: 'Command Minion',
     CreatureOfNight: 'Creature of Night',
     Darkness: 'Darkness',
@@ -166,9 +184,11 @@ exports.MoM.keeper_cards_list = {
     CalledByTheKing: 'Called by the King',
     OpenAuditions: 'Open Auditions',
     TheCourtOfCarcosa: 'The Court of Carcosa'
-};
+},
 
-exports.MoM.mythos_cards_list = {
+// ===
+
+mythos_cards: {
     bat: 'img/mythos_bat.png',
     door: 'img/mythos_door.png',
     downstairs: 'img/mythos_downstairs.png',
@@ -176,22 +196,12 @@ exports.MoM.mythos_cards_list = {
     gun: 'img/mythos_gun.png',
     question: 'img/mythos_question.png',
     upstairs: 'img/mythos_upstairs.png'
+}
+
 };
 
 
-exports.MoM.scenarios_list = [
-    { id: 1, name: 'The Fall of House Lynch', clues: 3 },
-    { id: 2, name: 'The Inner Sanctum', clues: 4 },
-    { id: 3, name: 'Blood Ties', clues: 5 },
-    { id: 4, name: 'Classroom Curses', clues: 4 },
-    { id: 5, name: 'Green-Eyed Boy', clues: 6 },
-    { id: 6, name: '[POD] Till Death Do Us Part', clues: 5 },
-    { id: 7, name: '[POD] House of Fears', clues: 5 },
-    { id: 8, name: '[POD] The Yellow Sign', clues: 4 }
-];
-
-
-exports.MoM.use_scenario = {
+exports.Mansions.use_scenario = {
 room_add: function (items, list, room_name) {
     items.push({ room: room_name, cards: list });
 },

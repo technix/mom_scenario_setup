@@ -10,10 +10,7 @@ var mansionsControllers = angular.module('mansionsControllers', []);
 
 mansionsControllers.controller('mansionsCtrl', ['$scope',
   function($scope) {
-    $scope.scenarios = MoM.scenarios_list;
-    $scope.cards     = MoM.cards_list;
-    $scope.keeper_cards = MoM.keeper_cards_list;
-    $scope.mythos_cards = MoM.mythos_cards_list;
+    $scope.MoM = Mansions.data;
 
     $scope.story = {
         scenario: 1,
@@ -28,7 +25,7 @@ mansionsControllers.controller('mansionsCtrl', ['$scope',
     };
 
     $scope.$watchCollection('story.scenario', function() {
-        var clues = $scope.scenarios[$scope.story.scenario - 1].clues;
+        var clues = $scope.MoM.scenarios[$scope.story.scenario - 1].clues;
         for (var i = 0; i < $scope.story.choices.length; i++) {
             $scope.story.choices[i].selected = '';
             $scope.story.choices[i].visible = true;
@@ -47,7 +44,7 @@ mansionsControllers.controller('mansionsCtrl', ['$scope',
             }
         }
         if (is_ready == 1) {
-            $scope.setup = MoM.use_scenario[$scope.story.scenario]($scope.story.choices);
+            $scope.setup = Mansions.use_scenario[$scope.story.scenario]($scope.story.choices);
         }
     }, true); // deep inspection of array
 
