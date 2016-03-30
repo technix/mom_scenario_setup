@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <style type="text/css">
         .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+        .pad {padding-left: 1em;}
     </style>
 
 </head>
@@ -17,50 +18,51 @@
 <div class="container" ng-controller="mansionsCtrl">
 
 <div class="row">
-    <div class="col-xs-12">
-        <h1>Mansions of Madness</h1>
-    </div>
+<div class="panel panel-primary">
+<div class="panel-heading">
+    <h3>Mansions of Madness</h3>
 </div>
-
-<div class="row">
-    <div class="col-xs-12">
-    <div class="panel panel-default">
-    <form class="form-horizontal panel-body" role="form">
+<div class="panel-body">
+    <form class="form-horizontal" role="form">
         <div class="form-group">
-          <label for="select-scenario" class="col-xs-2 control-label">Scenario</label>
-          <div class="col-xs-10">
+          <label for="select-scenario" class="col-sm-2 control-label">Scenario</label>
+          <div class="col-sm-10">
             <select class="form-control input-lg" name="select-scenario" id="select-scenario" ng-model="story.scenario">
                 <option ng-repeat="item in MoM.scenarios" value="{{item.id}}">{{item.name}}</option>
             </select>
           </div>
         </div>
         <div class="form-group form-inline">
-          <label class="col-xs-2 control-label">Choices</label>
-          <div class="col-xs-10">
+          <label class="col-sm-2 control-label">Choices</label>
+          <div class="col-sm-10">
             <select ng-repeat="choice in story.choices" ng-model="story.choices[$index].selected"
             class="form-control input-lg {{story.choices[$index].visible}}" name="select-choice-{{ $index }}" id="select-choice-{{ $index }}">
                 <option ng-repeat="value in choice.values">{{ value }}</option>
             </select>
             &nbsp;
-            <button class="btn btn-default" ng-click="randomize()">Random</button>
+            <button class="btn btn-default" ng-click="randomize()"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Random</button>
           </div>
         </div>
     </form>
-    
-    </div>
-    </div> <!-- panel -->
+</div>
+
+</div> <!-- panel -->
 </div>
 
 <div class="row" ng-class="{hide : setup.cards.length == 0}">
-    <div class="col-xs-12" >
-    <h2>Keeper setup</h2>
     
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title lead">Keeper setup</h3>
+    </div>
     <table class="table">
     <tbody>
     <tr>
         <th class="text-muted">Clues</th>
         <td class="lead">
-            <span ng-repeat="card in story.choices | filter: { visible: true }">{{card.selected}}{{ $last ? '' : ', ' }}</span>
+            <h1 style="display: inline; line-height: 1.5">
+            <span ng-repeat="card in story.choices | filter: { visible: true }"><span class="label label-primary">{{card.selected}}</span> </span>
+            </h1>
         </td>
         <td></td>
     </tr>
@@ -91,55 +93,59 @@
     </tr>
     </tbody>
     </table>
-    </div>
-
-    <div class="col-xs-12" >
-    <h2>Cards list</h2>
+</div>
     
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title lead">Cards list</h3>
+    </div>
     <table class="table">
     <tbody>
     <tr>
-        <th class="text-muted">Exploration</th>
         <td class="lead">
+            <h4 class="text-primary">Exploration</h4>
             <span ng-repeat="card in setup.cards['e']"><nobr>{{MoM.exploration_cards[card].name || '###'}}</nobr>{{ $last ? '' : ' &middot; ' }}</span>
         </td>
         <td><span class="label label-primary">{{setup.cards['e'].length}}</span></td>
     </tr>
     <tr>
-        <th class="text-muted"><nobr><span class="label label-default">?</span> Obstacles</nobr></th>
         <td class="lead">
+            <h4 class="text-primary"><span class="glyphicon glyphicon-link" aria-hidden="true"></span> Obstacles</h4>
             <span ng-repeat="card in setup.cards['o']"><nobr>{{MoM.exploration_cards[card].name || '###'}}</nobr>{{ $last ? '' : ' &middot; ' }}</span>
         </td>
         <td><span class="label label-primary">{{setup.cards['o'].length}}</span></td>
     </tr>
     <tr>
-        <th class="text-muted"><nobr><span class="label label-default">[}</span> Locks</nobr></th>
         <td class="lead">
+            <h4 class="text-primary"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Locks</h4>
             <span ng-repeat="card in setup.cards['l']"><nobr>{{MoM.exploration_cards[card].name || '###'}}</nobr>{{ $last ? '' : ' &middot; ' }}</span>
         </td>
         <td><span class="label label-primary">{{setup.cards['l'].length}}</span></td>
     </tr>
     <tr ng-class="{ hide: setup.cards['x'] == undefined }">
-        <th class="text-muted">Extra cards</th>
         <td class="lead">
+            <h4 class="text-primary">Extra cards</h4>
             <span ng-repeat="card in setup.cards['x']">{{MoM.exploration_cards[card].name || '###'}}{{ $last ? '' : ' &middot; ' }}</span>
         </td>
         <td></td>
     </tr>
     <tr ng-class="{ hide: setup.note == '' }">
-        <th class="text-muted">Note</th>
         <td>
+            <h4 class="text-primary">Note</h4>
             {{setup.note}}
         </td>
         <td></td>
     </tr>
     </tbody>
     </table>
-    </div>
+</div>
 
-    <div class="col-xs-12">
-    <h2>Cards order</h2>
-    <p>
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title lead">Cards order</h3>
+    </div>
     <table class="table">
     <tbody>
     <tr ng-repeat="room in setup.map">
@@ -147,7 +153,9 @@
         <ul class="list-unstyled" style="margin-bottom: 0px">
             <li ng-repeat="card in room.cards">
                 {{MoM.exploration_cards[card].name || '###'}}
-                <span class="label label-default" ng-class="{ hide: MoM.exploration_cards[card].type != 'l' && MoM.exploration_cards[card].type != 'o'  }">{{MoM.exploration_cards[card].type == 'l' ? '[}' : MoM.exploration_cards[card].type == 'o' ? '?' : ''}}</span>
+                <span class="text-primary" ng-class="{ hide: MoM.exploration_cards[card].type != 'l' && MoM.exploration_cards[card].type != 'o'  }">
+                    <span class="glyphicon {{MoM.exploration_cards[card].type == 'l' ? 'glyphicon-lock' : MoM.exploration_cards[card].type == 'o' ? 'glyphicon-link' : ''}}" aria-hidden="true"></span>
+                </span>
             </li>
         </ul>
         </td>
@@ -163,23 +171,33 @@
     </tr>
     </tbody>
     </table>
-    </p>
-    </div>
+</div>
 
-    <div class="col-xs-12">
-    <h2>Room setup</h2>
-    <p>
-    <ul class="list-group">
-    <li class="list-group-item lead" ng-repeat="room in setup.map" ng-init="topcard = MoM.exploration_cards[room.cards.slice(-1)[0]]"><span class="label label-primary">{{room.cards.length}}</span>
-    <span class="label label-default">{{topcard.type == 'l' ? '[}' : topcard.type == 'o' ? '?' : '&nbsp;&nbsp;'}}</span>
-    {{room.room}}
-    </li>
-    <li class="list-group-item lead"><span class="label label-primary">1</span> <i>Remaining rooms</i></li>
-    </ul>
-    </p>
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title lead">Room setup</h3>
     </div>
+    <table class="table">
+    <tbody>
+    <tr ng-repeat="room in setup.map" ng-init="topcard = MoM.exploration_cards[room.cards.slice(-1)[0]]">
+        <td class="lead">
+        <span class="label label-default">{{room.cards.length}}</span>
+        <span class="text-primary">
+            <span class="glyphicon {{topcard.type == 'l' ? 'glyphicon-lock' : topcard.type == 'o' ? 'glyphicon-link' : 'pad'}}" aria-hidden="true"></span>
+        </span>
+        &nbsp;
+        {{room.room}}
+        </td>
+    </tr>
+    <tr>
+        <td class="lead"><span class="label label-default">1</span> <span class="pad"></span>&nbsp;&nbsp; <i>Remaining rooms</i></td>
+    </tr>
+    </table>
 </div>
-</div>
+
+</div> <!-- /row -->
+</div> <!-- /container -->
 
 </body>
 </html>
