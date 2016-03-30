@@ -8,11 +8,7 @@
     <script src="mom_data.js"></script>
     <script src="app.js"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <style type="text/css">
-        .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
-        .pad {padding-left: 1em;}
-    </style>
-
+    <link rel="stylesheet" href="css/app.css" />
 </head>
 <body>
 <div class="container" ng-controller="mansionsCtrl">
@@ -50,19 +46,23 @@
 </div>
 
 <div class="row" ng-class="{hide : setup.cards.length == 0}">
-    
+
+<div class="well" style="text-align:center">
+    <h1>{{MoM.scenarios[story.scenario-1].name}}</h1>
+</div>
+
 <div class="panel panel-info">
     <div class="panel-heading">
-        <h3 class="panel-title lead">Keeper setup</h3>
+        <h3 class="panel-title">Keeper setup</h3>
     </div>
     <table class="table">
     <tbody>
     <tr>
         <th class="text-muted">Clues</th>
         <td class="lead">
-            <h1 style="display: inline; line-height: 1.5">
+            <h2 style="display: inline; line-height: 1.5">
             <span ng-repeat="card in story.choices | filter: { visible: true }"><span class="label label-primary">{{card.selected}}</span> </span>
-            </h1>
+            </h2>
         </td>
         <td></td>
     </tr>
@@ -94,11 +94,9 @@
     </tbody>
     </table>
 </div>
-    
-
 <div class="panel panel-info">
     <div class="panel-heading">
-        <h3 class="panel-title lead">Cards list</h3>
+        <h3 class="panel-title">Cards list</h3>
     </div>
     <table class="table">
     <tbody>
@@ -107,21 +105,21 @@
             <h4 class="text-primary">Exploration</h4>
             <span ng-repeat="card in setup.cards['e']"><nobr>{{MoM.exploration_cards[card].name || '###'}}</nobr>{{ $last ? '' : ' &middot; ' }}</span>
         </td>
-        <td><span class="label label-primary">{{setup.cards['e'].length}}</span></td>
+        <td class="lead"><span class="label label-default">{{setup.cards['e'].length}}</span></td>
     </tr>
     <tr>
         <td class="lead">
             <h4 class="text-primary"><span class="glyphicon glyphicon-link" aria-hidden="true"></span> Obstacles</h4>
             <span ng-repeat="card in setup.cards['o']"><nobr>{{MoM.exploration_cards[card].name || '###'}}</nobr>{{ $last ? '' : ' &middot; ' }}</span>
         </td>
-        <td><span class="label label-primary">{{setup.cards['o'].length}}</span></td>
+        <td class="lead"><span class="label label-default">{{setup.cards['o'].length}}</span></td>
     </tr>
     <tr>
         <td class="lead">
             <h4 class="text-primary"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Locks</h4>
             <span ng-repeat="card in setup.cards['l']"><nobr>{{MoM.exploration_cards[card].name || '###'}}</nobr>{{ $last ? '' : ' &middot; ' }}</span>
         </td>
-        <td><span class="label label-primary">{{setup.cards['l'].length}}</span></td>
+        <td class="lead"><span class="label label-default">{{setup.cards['l'].length}}</span></td>
     </tr>
     <tr ng-class="{ hide: setup.cards['x'] == undefined }">
         <td class="lead">
@@ -144,7 +142,7 @@
 
 <div class="panel panel-info">
     <div class="panel-heading">
-        <h3 class="panel-title lead">Cards order</h3>
+        <h3 class="panel-title">Cards order</h3>
     </div>
     <table class="table">
     <tbody>
@@ -176,7 +174,7 @@
 
 <div class="panel panel-info">
     <div class="panel-heading">
-        <h3 class="panel-title lead">Room setup</h3>
+        <h3 class="panel-title">Room setup</h3>
     </div>
     <table class="table">
     <tbody>
